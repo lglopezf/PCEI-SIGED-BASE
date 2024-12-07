@@ -1,0 +1,49 @@
+{% extends 'inicio.html' %}
+
+{% block title %}Asistencias{% endblock %}
+
+{% block contenido %}
+    {% for anio_lectivo in anio_lectivos %}
+        <div class="row ps-3 pe-3 pt-3" style="width: 100%">
+            <div class="col-12 mb-2">
+                <div class="card border border-primary-subtle">
+                    <div class="card-header bg-primary-subtle">
+                        Asistencias del año lectivo {{anio_lectivo.nombre}} ({{anio_lectivo.fecha_inicio}} al {{anio_lectivo.fecha_fin}})
+                    </div>
+                    <div class="card-body">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Docente</th>
+                                    <th>Asignatura</th>
+                                    <th>Paralelo</th>
+                                    <th>Matriculados</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for distributivo in anio_lectivo.get_distributivos %}
+                                    <tr>
+                                        <td>{{distributivo.docente}}</th>
+                                        <td>{{distributivo.asignatura}}</th>
+                                        <td>{{distributivo.paralelo.nombre}}</th>
+                                        <td>{{distributivo.get_matriculas.count}} estudiante(s)</th>
+                                        <td><a href="">[Registrar]</a></th>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="4">No hay datos a mostrar</th>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+

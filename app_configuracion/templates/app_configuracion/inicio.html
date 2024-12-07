@@ -1,0 +1,59 @@
+{% extends 'inicio.html' %}
+
+{% block title %}Institucion educativa{% endblock %}
+
+{% block contenido %}
+    <div class="row">
+        <div class="col-12">
+
+            {% if institucion %}
+                <div class="card border border-primary-subtle">
+                    <div class="card-header bg-primary-subtle">
+                        <h5>Institución educativa</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4"><b>Nombre:</b></div>
+                            <div class="col-8">{{institucion.nombre}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4"><b>Sostenimiento:</b></div>
+                            <div class="col-8">{{institucion.get_sostenimiento_display}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4"><b>Modalidad:</b></div>
+                            <div class="col-8">{{institucion.get_modalidad_display}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 pt-3">
+                                <a href="{% url 'app_configuracion:institucion_editar' institucion.id %}"
+                                    class="btn btn-primary">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </a>
+                                <a href="{% url 'app_configuracion:institucion_eliminar' institucion.id %}" 
+                                    onclick="javascript:return confirm('¿Seguro desea eliminar la institución?')" 
+                                    class="btn btn-danger">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="card border border-primary-subtle">
+                    <div class="card-header bg-primary-subtle">
+                        <h5>Institucion educativa</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Información de la institución educativa</p>
+                        <a href="{% url 'app_configuracion:institucion_crear' %}" class="btn btn-primary">
+                            <i class="bi bi-hand-index-thumb"></i> Crear
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>    
+    </div>
+{% endblock %}
+
+

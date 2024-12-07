@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <title>{% block title %}SIGED{% endblock %}</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'general.css' %}">
+
+        <link rel="stylesheet" href="{% static 'bootstrap5.3.3/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/font/bootstrap-icons.css' %}">
+
+        <script src="{% static 'bootstrap5.3.3/js/bootstrap.js' %}"></script>
+        <script src="{% static 'bootstrap5.3.3/js/bootstrap.bundle.js' %}"></script>
+
+    </head>
+    <body> 
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <header class="d-flex align-items-center justify-content-center">
+            <h2>Sistemas de Información de Gestión Educativa (SIGED)</h2>
+        </header>
+
+        <nav class="d-flex align-items-center justify-content-center">
+            <a href="https://unl.edu.ec/" target="_blank">Universidad Nacional de Loja</a>
+        </nav>
+
+        <main>
+            <aside>
+                <div class="align-items-start">
+                    <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        
+                        <a class="nav-link text-start {%if not parametro %} active {% endif %}"  
+                        href="{% url 'inicio' %}">
+                            <i class="bi bi-display-fill"></i> Inicio
+                        </a>
+
+                        <a class="nav-link text-start {%if parametro == 1 %} active {% endif %}"  
+                        href="{% url 'app_configuracion:institucion' %}">
+                            <i class="bi bi-house-fill"></i> Institución educativa
+                        </a>
+
+                        <a class="nav-link text-start {%if parametro == 2 %} active {% endif %}"  
+                        href="{% url 'app_usuarios:usuarios' %}">
+                            <i class="bi bi-person-fill"></i> Usuarios
+                        </a>
+
+                        <a class="nav-link text-start {%if parametro == 3 %} active {% endif %}"  
+                        href="{% url 'app_grados:grados' %}">
+                            <i class="bi bi-stack"></i> Grados o cursos
+                        </a>
+
+                        <a class="nav-link text-start {%if parametro == 4 %} active {% endif %}"  
+                        href="{% url 'app_ofertaacademica:oferta_academica' %}">
+                            <i class="bi bi-plus-square"></i> Oferta académica
+                        </a>
+
+                        <a class="nav-link text-start {%if parametro == 5 %} active {% endif %}"  
+                        href="{% url 'app_librocalificaciones:libro_calificaciones' %}">
+                            <i class="bi bi-ui-checks-grid"></i> Libro de calificaciones
+                        </a>
+
+                        <a class="nav-link text-start {%if parametro == 6 %} active {% endif %}"  
+                        href="{% url 'app_matriculas:matriculas' %}">
+                            <i class="bi bi-people-fill"></i> Matrículas
+                        </a>
+
+                        <a class="nav-link text-star {%if parametro == 7 %} active {% endif %}" 
+                        href="{% url 'app_asistencias:asistencias' %}">
+                            <i class="bi bi-calendar-plus-fill"></i> Asistencias
+                        </a>
+
+                        <a class="nav-link text-start {%if parametro == 8 %} active {% endif %}" 
+                        href="{% url 'app_calificaciones:calificaciones' %}">
+                            <i class="bi bi-file-earmark-check-fill"></i> Calificaciones
+                        </a>
+
+                       </div>
+                </div>
+            </aside>
+
+            <section>
+                <article>
+                    <div class="align-items-start">
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="row ps-3 pe-3 pt-3" style="width: 100%">
+                                <div class="col-12">
+                                    {% block contenido %} 
+                                    
+                                    {% endblock contenido %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+        </main>
+
+        <footer class="d-flex align-items-center justify-content-center">
+            <h5>2024 - 6 ciclo A - Programacion web</h5>
+        </footer>
+       
+    </body>
+</html>

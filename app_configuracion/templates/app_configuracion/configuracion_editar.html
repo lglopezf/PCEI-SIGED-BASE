@@ -1,0 +1,71 @@
+{% extends 'inicio.html' %}
+
+{% block title %}Institucion educativa{% endblock %}
+
+{% block contenido %}
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card border border-primary-subtle">
+                <div class="card-header bg-primary-subtle">
+                    <h5>
+                        {%if institucion %}
+                            Editar institucion
+                        {% else %}
+                            Crear institucion
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group my-1 mr-sm-2">
+                                    <label for="nombre">Nombre <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" 
+                                    placeholder="Ingrese el nombre" value="{{institucion.nombre}}" required>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group my-1 mr-sm-2">
+                                    <label for="sostenimiento">Sostenimiento <span class="text-danger">*</span></label>
+                                    <select class="form-control"  name="sostenimiento" id="sostenimiento" required>
+                                        <option value="">Seleccione una opción</option>
+                                        <option value="fiscal" {%if institucion.sostenimiento == 'fiscal' %} selected {%endif%}>Fiscal</option>
+                                        <option value="particular" {%if institucion.sostenimiento == 'particular' %} selected {%endif%}>Particular</option>
+                                        <option value="municipal" {%if institucion.sostenimiento == 'municipal' %} selected {%endif%}>Municipal</option>
+                                        <option value="fiscomisional" {%if institucion.sostenimiento == 'fiscomisional' %} selected {%endif%}>Fiscomisional</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group my-1 mr-sm-2">
+                                    <label for="modalidad">Modalidad <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="modalidad" id="modalidad" required>
+                                        <option value="">Seleccione una opción</option>
+                                        <option value="presencial" {%if institucion.modalidad == 'presencial' %} selected {%endif%}>Presencial</option>
+                                        <option value="semipresencial" {%if institucion.modalidad == 'semipresencial' %} selected {%endif%}>Semipresencial</option>
+                                        <option value="distancia" {%if institucion.modalidad == 'distancia' %} selected {%endif%}>Distancia</option>
+                                        <option value="enlinea" {%if institucion.modalidad == 'enlinea' %} selected {%endif%}>En linea</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+
+                </div>
+            </div>
+            
+        </div>    
+    </div>
+{% endblock %}
+
+

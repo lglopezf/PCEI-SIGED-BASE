@@ -1,0 +1,36 @@
+# Extensions to ignore
+*.log
+*.map
+*.pot
+*.pyc
+*.pyd
+*.pyo
+
+# Archivos de configuración del entorno de desarrollo
+.DS_Store
+__pycache__/
+*.vscode/
+.idea/
+.installed.cfg
+bin
+develop-eggs
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+src/*.egg-info/
+
+# Archivos de cache y media
+staticfiles/
+media/
+
+# Migraciones
+*migrations/
+
+# Base de datos
+db.sqlite3
+
+
+
