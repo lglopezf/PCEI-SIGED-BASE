@@ -1,0 +1,14 @@
+<!-- templates/paralelo/create_paralelo.html -->  
+{% extends 'inicio.html' %}  
+
+{% block title %}Crear Paralelo{% endblock %}  
+
+{% block contenido %}  
+    <h1>Crear Paralelo</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"class="btn btn-primary">Guardar</button>
+        <a href="{% url 'app_ofertaacademica:admin_paralelo' %}" class="btn btn-secondary">Volver</a>    
+</form>  
+{% endblock %}

@@ -1,0 +1,47 @@
+<!-- templates/app_usuarios/admin_docentes.html -->  
+{% extends 'inicio.html' %}  
+
+{% block title %}Administrar Docentes{% endblock %}  
+
+{% block contenido %}  
+<h2>Administrar Docentes</h2>  
+<a href="{% url 'app_usuarios:create_docente' %}" class="btn btn-success">Agregar Docente</a> 
+<a href="{% url 'app_usuarios:usuarios' %}" class="btn btn-secondary">Volver</a>  
+<table class="table">  
+    <thead>  
+        <tr>  
+            <th>ID</th>  
+            <th>Nombres</th>  
+            <th>Apellidos</th>  
+            <th>Identificación</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Correo Institucional</th>
+            <th>Celular</th>
+            <th>Dirección</th>
+            <th>Acciones</th>  
+        </tr>  
+    </thead>  
+    <tbody>  
+        {% for docente in docentes %}  
+        <tr>  
+            <td>{{ docente.id }}</td>  
+            <td>{{ docente.nombres }}</td>  
+            <td>{{ docente.apellidos }}</td>  
+            <td>{{ docente.identificacion }} </td>
+            <td>{{ docente.fecha_nacimiento }} </td>
+            <td>{{ docente.correo_institucional }} </td>
+            <td>{{ docente.celular }} </td>
+            <td>{{ docente.direccion }} </td>
+            <td>  
+                <a href="{% url 'app_usuarios:update_docente' docente.id %}" class="btn btn-warning">Editar</a>  
+                <a href="{% url 'app_usuarios:delete_docente' docente.id %}" class="btn btn-danger">Eliminar</a>  
+            </td>  
+        </tr>  
+        {% empty %}
+        <tr>  
+            <td colspan="9">No existe información a mostrar</td> 
+        </tr> 
+        {% endfor %}  
+    </tbody>  
+</table>  
+{% endblock %}  

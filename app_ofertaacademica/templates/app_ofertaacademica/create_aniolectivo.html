@@ -1,0 +1,14 @@
+<!-- templates/aniolectivo/create_aniolectivo.html -->  
+{% extends 'inicio.html' %}  
+
+{% block title %}Crear Año Lectivo{% endblock %}  
+
+{% block contenido %}  
+<h2>Crear Año Lectivo</h2>  
+<form method="POST">  
+    {% csrf_token %}  
+    {{ form.as_p }}  
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{% url 'app_ofertaacademica:admin_aniolectivo' %}" class="btn btn-secondary">Volver</a>    
+</form>  
+{% endblock %}

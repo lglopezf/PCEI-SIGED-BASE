@@ -1,0 +1,31 @@
+{% extends 'inicio.html' %}
+
+{% block titulo %}
+    crear/editar libro
+    
+{% endblock %}
+
+{% block contenido %}
+    <table class="table table-striped">
+    
+        <div class="card shadow mb-4">
+            <div class="card">
+                <div class="card-header"style="background-color: rgb(222, 235, 249);">
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                       <b><label for="librocalificacion">Seleccionar Libro de Calificaciones</label></b>
+                        <select  class="form-control" id="nombre" name="nombre" required>
+                            <option value="">Seleccione una opción</option>
+                            <option value="Ponderado">Ponderado</option>
+                            <option value="Promedio simple">Promedio simple</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-3">Guardar</button>
+                </form>
+                <a href="{% url 'app_librocalificaciones:lista_libro_calificaciones' %}" class="btn btn-warning mt-3">Volver a la lista</a>
+            </div>
+        </div>
+    </table>
+{% endblock %}

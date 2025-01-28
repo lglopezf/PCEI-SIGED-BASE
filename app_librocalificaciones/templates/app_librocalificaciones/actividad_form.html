@@ -1,0 +1,49 @@
+{% extends 'inicio.html' %}
+
+{% block title %}
+    Crear/Editar actividad
+{% endblock %}
+
+{% block contenido %}
+  
+
+    <div class="row">
+        <div class="col-12 mb-2">
+            <div class="card border border-primary-subtle">
+                <div class="card-header bg-primary-subtle">
+                    <p class="text-center"><b>Actividades</b></p>
+                </div>
+                <div class="card-body">
+                    <form method="post">  
+                        {% csrf_token %}  
+                        <div class="mb-3">
+                            <label for="id_nombre">Nombre:</label>  
+                            <input type="text" class="form-control" name="nombre" id="id_nombre" maxlength="200" value="{{actividad.nombre}}" required>
+                        </div>
+                        <p></p>
+                        <label for="id_tipo">Tipo:</label>  
+                        <select class="form-select" aria-label="Default select example" name="tipo" id="id_tipo" required>  
+                            <option value="">Seleccione una opción</option>
+                            <option value="actividad_grupal" {% if actividad.tipo == 'actividad_grupal' %} selected {% endif %}>Actividad Grupal</option>
+                            <option value="actividad_individual" {% if actividad.tipo == 'actividad_individual' %} selected {% endif %}>Actividad Individual</option>
+                            <option value="leccion" {% if actividad.tipo == 'leccion' %} selected {% endif %}>Lección</option>
+                            <option value="evalucion_final" {% if actividad.tipo == "evalucion_final" %} selected {% endif %}>Evaluación Final</option>
+                        </select>
+                        <p></p>
+                        <label for="id_evaluacion">Evaluación:</label>  
+                        <select class="form-select" aria-label="Default select example" name="evaluacion" id="id_evaluacion" required>  
+                            <option value="">Seleccione una opción</option>
+                            {% for evaluacion in evaluaciones %}  
+                            <option value="{{evaluacion.id}}" {% if actividad.evaluacion.id == evaluacion.id %} selected {% endif %}>{{evaluacion.periodo_academico}} - {{evaluacion.get_nombre_display}}</option>
+                            {% endfor %}  
+                        </select> 
+                        <p></p>
+                        <button type="submit" class="btn btn-primary">Guardar</button>  
+                        <a class="btn btn-danger" href="{% url 'app_librocalificaciones:actividad_lista' %}">Cancelar</a>        
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div>
+{%endblock%}
+

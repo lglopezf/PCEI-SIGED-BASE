@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
                 <p class="card-text">Gestión de los docentes de la institución</p>
-                <a href="#" class="btn btn-primary">Administrar</a>
+                <a href="{% url 'app_usuarios:admin_docentes' %}"    class="btn btn-primary">Administrar</a>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-body">
                 <p class="card-text">Gestión de los estudiantes de la institución</p>
-                <a href="#" class="btn btn-primary">Administrar</a>
+                <a href="{% url 'app_usuarios:admin_estudiantes' %}" class="btn btn-primary">Administrar</a>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="card-body">
                 <p class="card-text">Gestión de los padres de familia de la institución</p>
-                <a href="#" class="btn btn-primary">Administrar</a>
+                <a href="{% url 'app_usuarios:admin_representantes' %}" class="btn btn-primary">Administrar</a>
                 </div>
             </div>
         </div>

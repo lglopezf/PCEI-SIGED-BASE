@@ -1,0 +1,38 @@
+<!-- templates/app_ofertaacdemica/admin_aniolecto.html -->  
+{% extends 'inicio.html' %}  
+
+{% block title %}Administrar Año Lectivo{% endblock %}  
+
+{% block contenido %}  
+<h2>Administrar Año Lectivo</h2>  
+<a href="{% url 'app_ofertaacademica:create_aniolectivo' %}" class="btn btn-Info">Agregar Año Lectivo</a> 
+<a href="{% url 'app_ofertaacademica:oferta_academica' %}" class="btn btn-secondary">Volver</a>  
+<table class="table">  
+    <thead>  
+        <tr> 
+
+            <th >Nombre</th>
+            <th>Fecha Inicio</th>  
+            <th>Fecha Fin</th>  
+            <th></th>
+        </tr>  
+    </thead>  
+    <tbody>  
+        {% for aniolectivo in aniolectivo %}  
+        <tr>  
+            <td >{{aniolectivo.nombre }}</td>  
+            <td>{{ aniolectivo.fecha_inicio }}</td>  
+            <td>{{ aniolectivo.fecha_fin }}</td>  
+            <td>  
+                <a href="{% url 'app_ofertaacademica:update_aniolectivo' aniolectivo.id %}" class="btn btn-warning">Editar</a>  
+                <a href="{% url 'app_ofertaacademica:delete_aniolectivo' aniolectivo.id %}" class="btn btn-danger">Eliminar</a>  
+            </td>  
+        </tr>  
+        {% empty %}
+            <tr>  
+                <td colspan="4">No existe información a mostrar</td> 
+            </tr> 
+        {% endfor %}  
+    </tbody>  
+</table> 
+{% endblock %}

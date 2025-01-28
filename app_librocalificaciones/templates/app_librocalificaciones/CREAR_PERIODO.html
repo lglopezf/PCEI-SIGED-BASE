@@ -1,0 +1,51 @@
+{% extends 'inicio.html' %}
+
+{% block titulo %}
+   Crear periodo
+{% endblock %}
+
+
+{% block contenido %}
+<div class="row">
+    <div class="col-12" roquired>
+        <div class="card border border-primary-subtle">
+            <div class="card-header bg-primary-subtle">
+                Periodo academico
+            </div>
+            <form method="POST">
+                {% csrf_token%}
+                <div class="card-body" required>
+                    <div>
+                        <label for="id_nombre">Nombre:</label>
+                        <input type="text" name="nombre" id="id_nombre" maxlength="200" placeholder="Ingresa un nombre" >
+                    </div>
+                    <p></p>
+                    <div>
+                        <label for="orden"  >Orden:</label>
+                        <select name="orden" >
+                            <option value="" >selecciona </option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <p></p>
+                    <div>
+                        <label>librocalificacion:</label>
+                        <select name="librocalificacion" required >
+                            <option value="selecciona" >selecciona </option>
+                            {% for libro_calificacion in libro_calificaciones %}
+                                <option value="{{libro_calificacion.id}}">{{libro_calificacion.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-primary">GUARDAR</button>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    
+    
+{% endblock %}

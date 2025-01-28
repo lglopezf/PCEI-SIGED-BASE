@@ -1,0 +1,14 @@
+<!-- templates/paralelo/update_paralelo.html -->  
+{% extends 'inicio.html' %}  
+
+{% block title %}Actualizar Paralelo{% endblock %}  
+
+{% block contenido %}  
+<h2>Actualizar Paralelo</h2>  
+<form method="POST">  
+    {% csrf_token %}  
+    {{ form.as_p }}  
+    <button type="submit" class="btn btn-primary">Actualizar</button> 
+    <a href="{% url 'app_ofertaacademica:admin_paralelo' %}" class="btn btn-secondary">Volver</a>   
+</form>  
+{% endblock %}

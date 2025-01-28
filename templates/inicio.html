@@ -10,6 +10,15 @@
         <script src="{% static 'bootstrap5.3.3/js/bootstrap.js' %}"></script>
         <script src="{% static 'bootstrap5.3.3/js/bootstrap.bundle.js' %}"></script>
 
+        <!-- CSS de DataTables -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
+        <!-- JS de jQuery (DataTables depende de jQuery) -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- JS de DataTables -->
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
     </head>
     <body> 
         {% if messages %}
@@ -71,7 +80,7 @@
                         </a>
 
                         <a class="nav-link text-star {%if parametro == 7 %} active {% endif %}" 
-                        href="{% url 'app_asistencias:asistencias' %}">
+                        href="{% url 'app_asistencias:paralelos' %}">
                             <i class="bi bi-calendar-plus-fill"></i> Asistencias
                         </a>
 
@@ -107,4 +116,8 @@
         </footer>
        
     </body>
+
+    {% block extra_js %}
+
+    {% endblock %}
 </html>

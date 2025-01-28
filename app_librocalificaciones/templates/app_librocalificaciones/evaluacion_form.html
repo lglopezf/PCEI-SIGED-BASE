@@ -1,0 +1,47 @@
+{% extends 'inicio.html' %}
+
+{% block title %}
+    Crear/Editar evaluacion
+{% endblock %}
+
+{% block contenido %}
+  
+
+    <div class="row">
+        <div class="col-12 mb-2">
+            <div class="card border border-primary-subtle">
+                <div class="card-header bg-primary-subtle">
+                    <p class="text-center"><b>Evaluaciones</b></p>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_nombre">Nombre:</label>  
+                            <input type="text" class="form-control" name="nombre" id="id_nombre" maxlength="200" value="{{evaluacion.nombre}}" required>
+                        </div>
+                        <p></p>
+                        <div class="mb-3">
+                            <label for="id_ponderado">Ponderado</label>
+                            <input type="text" class="form-control" name="ponderado" id="id_ponderado" maxlength="200" value="{{evaluacion.ponderado|default:''}}">
+                        </div>
+                        <p></p>
+                        <label for="id_periodo_academico">Periodo Academico <span>*</span> </label>                    
+                        <select class="form-select" aria-label="Default select example" name="periodo_academico" id="id_periodo_academico" required>
+                            <option value="">Seleccione</option>
+                            {% for periodoacademico in periodosacademicos %}
+                            <option value="{{periodoacademico.id}}" {% if evaluacion.periodo_academico.id == periodoacademico.id %} selected {% endif %}>{{periodoacademico.librocalificacion.get_nombre_display}} - {{periodoacademico.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                        
+                        <p></p>
+                        <button class="btn btn-primary" type="submit">Guardar</button>
+                        <a href="{% url 'app_librocalificaciones:evaluacion_lista' %}" class="btn btn-danger">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+       
+        </div>
+    </div>
+
+{% endblock %}

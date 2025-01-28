@@ -6,15 +6,18 @@
     {% for anio_lectivo in anio_lectivos %}
         <div class="row ps-3 pe-3 pt-3" style="width: 100%">
             <div class="col-12 mb-2">
-                <div class="card border border-primary-subtle">
-                    <div class="card-header bg-primary-subtle">
-                        Calificaciones del año lectivo {{anio_lectivo.nombre}} ({{anio_lectivo.fecha_inicio}} al {{anio_lectivo.fecha_fin}})
+                <div class="card border border-primary-subtle border-2">
+
+                    <div class="card-header bg-primary-subtle text-center">
+                        <b>Calificaciones del año lectivo {{anio_lectivo.nombre}} ({{anio_lectivo.fecha_inicio}} al {{anio_lectivo.fecha_fin}})</b>
                     </div>
+
                     <div class="card-body">
 
                         <table class="table">
+                            
                             <thead>
-                                <tr>
+                                <tr  class="text-center">
                                     <th>Docente</th>
                                     <th>Asignatura</th>
                                     <th>Paralelo</th>
@@ -22,15 +25,16 @@
                                     <th></th>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 {% for distributivo in anio_lectivo.get_distributivos %}
-                                    <tr>
+                                    <tr  class="text-center">
                                         <td>{{distributivo.docente}}</th>
                                         <td>{{distributivo.asignatura}}</th>
                                         <td>{{distributivo.paralelo.nombre}}</th>
                                         <td>{{distributivo.get_matriculas.count}} estudiante(s)</th>
                                         <td>
-                                            <a href="">[Ver libro]</a>
+                                            <a class="btn btn-success bi bi-eye-fill"  href="{% url 'app_calificaciones:verlibro' distributivo.id %}">[Ver libro]</a>
                                         </th>
                                     </tr>
                                 {% empty %}
@@ -39,11 +43,15 @@
                                     </tr>
                                 {% endfor %}
                             </tbody>
+
                         </table>
 
                     </div>
+
                 </div>
+
             </div>
+
         </div>
     {% endfor %}
 {% endblock %}

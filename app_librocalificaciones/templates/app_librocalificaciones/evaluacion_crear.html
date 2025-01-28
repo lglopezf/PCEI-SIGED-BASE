@@ -1,0 +1,39 @@
+{% extends 'inicio.html' %}
+
+{% block title %}Libro de calificaciones{% endblock %}
+
+{% block contenido %}
+<div class="row">
+    <div class="col-12 mb-2">
+        <div class="card border border-primary-subtle">
+            <div class="card-header bg-primary-subtle">
+                Libros de calificación
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="id_nombre">Nombre <span>*</span></label>
+                    <input type="text" name="nombre" id="id_nombre" maxlength="200" value="{{evaluciones.nombre}}" required>
+                    <p></p>
+                    <label for="id_ponderado">Ponderado</label>
+                    <input type="text" name="ponderado" id="id_ponderado" maxlength="200" value="{{evaluciones.ponderado}}">
+                    <p></p>
+                    <label for="id_periodo_academico">Periodo Academico <span>*</span> </label>                    
+                    <select name="periodo_academico" id="id_periodo_academico" required>
+                        <option value="">Seleccione</option>
+                        {% for periodoacademico in periodosacademicos %}
+                            <option value="{{periodoacademico.id}}">{{periodoacademico.nombre}}</option>
+                        {% endfor %}
+                    </select>
+                    
+                    <p></p>
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                    <a href="{% url 'app_librocalificaciones:evaluacion_lista' %}" class="btn btn-danger btn-sm">Cancelar</a>
+                </form>
+            </div>
+        </div>
+   
+    </div>
+</div>
+    
+{%endblock%}

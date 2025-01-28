@@ -1,0 +1,14 @@
+<!-- templates/docentes/delete_docente.html -->  
+{% extends 'inicio.html' %}  
+
+{% block title %}Eliminar Docente{% endblock %}  
+
+{% block contenido %}  
+<h2>Eliminar Docente</h2>  
+<p>¿Estás seguro de que deseas eliminar a {{ docente.nombres }} {{ docente.apellidos }}?</p>  
+<form method="POST">  
+    {% csrf_token %}  
+    <button type="submit" class="btn btn-danger">Eliminar</button>  
+    <a href="{% url 'app_usuarios:admin_docentes' %}" class="btn btn-secondary">Cancelar</a>
+</form>    
+{% endblock %}  

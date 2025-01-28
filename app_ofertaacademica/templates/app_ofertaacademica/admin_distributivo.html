@@ -1,0 +1,38 @@
+{% extends 'inicio.html' %}  
+
+{% block title %}Administrar Distributivo{% endblock %}  
+
+{% block contenido %}  
+<h2>Administrar Distributivo</h2>  
+<a href="{% url 'app_ofertaacademica:create_distributivo' %}" class="btn btn-Info">Agregar Distributivo</a>  
+<a href="{% url 'app_ofertaacademica:oferta_academica' %}" class="btn btn-secondary">Volver</a>  
+<table class="table">  
+    <thead>  
+        <tr>  
+            <th>Año Lectivo</th>  
+            <th>Asignatura</th>
+            <th>Docente</th>
+            <th>Paralelo</th>
+            <th></th> 
+        </tr>  
+    </thead>  
+    <tbody>  
+        {% for distributivo in distributivo %}  
+        <tr>  
+            <td>{{ distributivo.aniolectivo }}</td> 
+            <td>{{ distributivo.asignatura }} </td>
+            <td>{{ distributivo.docente }} </td>
+            <td>{{ distributivo.paralelo }} </td>
+            <td>
+                <a href="{% url 'app_ofertaacademica:update_distributivo' distributivo.id %}" class="btn btn-warning">Editar</a>  
+                <a href="{% url 'app_ofertaacademica:delete_distributivo' distributivo.id %}" class="btn btn-danger">Eliminar</a>
+            </td>  
+        </tr>  
+        {% empty %}
+            <tr>  
+                <td colspan="5">No existe información a mostrar</td> 
+            </tr> 
+        {% endfor %}  
+    </tbody>  
+</table>  
+{% endblock %} 

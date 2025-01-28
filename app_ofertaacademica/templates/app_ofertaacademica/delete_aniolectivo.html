@@ -1,0 +1,14 @@
+<!-- templates/aniolectivo/delete_aniolectivo.html -->  
+{% extends 'inicio.html' %}  
+
+{% block title %}Eliminar Año Lectivo{% endblock %}  
+
+{% block contenido %}  
+<h2>Eliminar Año Lectivo</h2>  
+<p>¿Estás seguro de que deseas eliminar a {{ aniolectivo.nombre }}?</p>  
+<form method="POST">  
+    {% csrf_token %}  
+    <button type="submit" class="btn btn-danger">Eliminar</button>  
+</form>  
+<a href="{% url 'app_ofertaacademica:admin_aniolectivo' %}" class="btn btn-secondary">Cancelar</a>  
+{% endblock %}

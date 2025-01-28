@@ -1,0 +1,47 @@
+<!-- templates/app_usuarios/admin_estudiantes.html -->  
+{% extends 'inicio.html' %}  
+
+{% block title %}Administrar Estudiantes{% endblock %}  
+
+{% block contenido %}  
+<h2>Administrar Representantes</h2>  
+<a href="{% url 'app_usuarios:create_representante' %}" class="btn btn-success">Agregar Representante</a>  
+<a href="{% url 'app_usuarios:usuarios' %}" class="btn btn-secondary">Volver</a>  
+<table class="table">  
+    <thead>  
+        <tr>  
+            <th>ID</th>  
+            <th>Nombres</th>  
+            <th>Apellidos</th> 
+            <th>Identificación</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Correo Personal</th>
+            <th>Celular</th>
+            <th>Dirección</th> 
+            <th>Acciones</th>  
+        </tr>  
+    </thead>  
+    <tbody>  
+        {% for representante in representantes %}  
+        <tr>  
+            <td>{{ representante.id }}</td>  
+            <td>{{ representante.nombres }}</td>  
+            <td>{{ representante.apellidos }}</td>
+            <td>{{ representante.identificacion }} </td>
+            <td>{{ representante.fecha_nacimiento }} </td>
+            <td>{{ representante.correo_personal }} </td>
+            <td>{{ representante.celular }} </td>
+            <td>{{ representante.direccion }} </td>  
+            <td>  
+                <a href="{% url 'app_usuarios:update_representante' representante.id %}" class="btn btn-warning">Editar</a>  
+                <a href="{% url 'app_usuarios:delete_representante' representante.id %}" class="btn btn-danger">Eliminar</a>  
+            </td>  
+        </tr> 
+        {% empty %}
+            <tr>  
+                <td colspan="9">No existe información a mostrar</td> 
+            </tr>
+        {% endfor %}  
+    </tbody>  
+</table>  
+{% endblock %}   

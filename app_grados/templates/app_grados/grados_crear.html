@@ -1,0 +1,77 @@
+{% extends 'inicio.html' %}
+
+{% block titulo %}
+    <title>{% if item %}Editar Grado{% else %}Crear Grado{% endif %}</title>
+{% endblock %}
+
+{% block contenido %}
+    <div class="container mt-5">
+        <div class="card shadow-sm bg-light">
+            <div class="card-header bg-info text-white">
+                <h1 class="mb-1 text-center">{% if item %}Editar{% else %}Crear{% endif %} Grado</h1>
+            </div>
+            <div class="card-body">
+                <form method="post" class="needs-validation" >
+                    {% csrf_token %}
+                    <div class="form-group mb-3">
+                        <label for="nombre">Nombre del Grado:</label>
+                        <input type="text" name="nombre" id="nombre" maxlength="200" class="form-control" value="{{ item.nombre }}" required>
+                        <div class="invalid-feedback">
+                            Por favor, ingrese el nombre del grado.
+                        </div>
+                    </div>
+
+                    <div class="form-group  mb-3">
+                        <label for="institucion">Seleccionar Institución:</label>
+                        <select class="form-select" id="institucion" name="institucion" required>
+                            <option value="">Seleccione una opción</option>
+                            {% for institucion in instituciones %}
+                                <option value="{{ institucion.id }}" {% if item and item.institucion.id == institucion.id %}selected{% endif %}>{{ institucion.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">
+                            Por favor, seleccione una institución.
+                        </div>
+                    </div>
+
+                    <div class="form-group  mb-3">
+                        <label for="nivel">Seleccionar Nivel:</label>
+                        <select class="form-select" id="nivel" name="nivel" required>
+                            <option value="">Seleccione una opción</option>
+                            {% for nivel in niveles %}
+                                <option value="{{ nivel.id }}" {% if item and item.nivel.id == nivel.id %}selected{% endif %}>{{ nivel.get_nombre_display }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">
+                            Por favor, seleccione un nivel.
+                        </div>
+                    </div>
+
+                    <div class="form-group  mb-3">
+                        <label for="subnivel">Seleccionar Subnivel:</label>
+                        <select class="form-select" id="subnivel" name="subnivel">
+                            <option value="">Seleccione una opción</option>
+                            {% for subnivel in subniveles %}
+                                <option value="{{ subnivel.id }}" {% if item and item.subnivel.id == subnivel.id %}selected{% endif %}>{{ subnivel.get_nombre_display }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group  mb-3">
+                        <label for="librocalificacion">Seleccionar Libro de Calificaciones:</label>
+                        <select class="form-select" id="librocalificacion" name="librocalificacion">
+                            <option value="">Seleccione una opción</option>
+                            {% for libro in librocalificaciones %}
+                                <option value="{{ libro.id }}" {% if item and item.libro_calificacion.id == libro.id %}selected{% endif %}>{{ libro.get_nombre_display }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{% url 'app_grados:grados_listar' %}" class="btn btn-primary">Cancelar</a>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

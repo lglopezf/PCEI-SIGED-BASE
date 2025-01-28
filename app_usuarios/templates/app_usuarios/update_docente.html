@@ -1,0 +1,14 @@
+<!-- templates/docentes/update_docente.html -->  
+{% extends 'inicio.html' %}  
+
+{% block title %}Actualizar Docente{% endblock %}  
+
+{% block contenido %}  
+<h2>Actualizar Docente</h2>  
+<form method="POST">  
+    {% csrf_token %}  
+    {{ form.as_p }}  
+    <button type="submit" class="btn btn-primary">Actualizar</button> 
+    <a href="{% url 'app_usuarios:admin_docentes' %}" class="btn btn-secondary">Volver</a>   
+</form>  
+{% endblock %}  

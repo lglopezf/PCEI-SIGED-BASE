@@ -1,0 +1,82 @@
+{% extends 'inicio.html' %}
+
+{% block title %}Ver libro {% endblock %}
+{% load filtros %}
+{% load l10n %}
+
+{% block contenido %}
+
+    <div class="card border border-primary-subtle">
+
+        <div class="card-header bg-primary text-white">
+
+            <h5 class="float-start">Datos Informativos</h5>
+            <a href="{%url 'app_calificaciones:calificaciones'%}" class="btn btn-warning float-end bi bi-reply-all-fill">Regresar </a>
+
+        </div>
+
+        <div class="card-body p-2">
+
+            <b>Docente:</b> {{distributivo.docente.nombres}} {{distributivo.docente.apellidos}}
+            <br><b>Asignatura:</b> {{distributivo.asignatura.nombre}}
+            <br><b>Grado:</b> {{distributivo.asignatura.grado.nombre}}
+            <br><b>Paralelo:</b> {{distributivo.paralelo.nombre}}
+            <br><b>Total estudiantes:</b> {{ matriculas|length }}
+
+        </div>
+
+    </div>
+
+    <br>
+    <table class="table border border-info border-4">
+
+        <thead>
+
+            <tr class="text-center">
+
+                <td><b>Estudiantes</b></td>
+                {% for periodo_academico in libro_calificaciones.periodos_academicos.all %}
+
+                <td>
+                    <b>Promedio {{periodo_academico.nombre}}</b>
+                    <br><a class="btn btn-primary bi bi-ui-checks"
+                        href="{% url 'app_calificaciones:verevaluaciones' distributivo.id periodo_academico.id %}">Ver detalle</a>
+                </td>
+
+
+                {% endfor %}
+                <td><b>Promedio Final</b><br><a class="btn btn-success bi bi-file-earmark-spreadsheet"
+
+                    href="{% url 'app_calificaciones:calcularpromedio_calificacionfinal' distributivo.id %}">Calcular</a>
+
+                </td>
+
+            </tr>
+            
+        </thead>
+
+        <tbody>
+
+            {% for matricula in matriculas %}
+                <tr class="text-center">
+
+                    <td>{{matricula.estudiante.nombres}} {{matricula.estudiante.apellidos}}</td>
+                    {% for periodo_academico in libro_calificaciones.periodos_academicos.all %}
+
+                        <td>                         
+                            {{matricula|recuperar_nota_periodo_filtro:periodo_academico|unlocalize|default:'SN'}}
+                        </td>
+
+                    {% endfor %}
+
+                    <td>
+                        {{matricula|recuperar_nota_calificacionfinal_filtro|unlocalize|default:'SN'}}
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock %}

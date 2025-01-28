@@ -1,0 +1,71 @@
+{% extends 'inicio.html' %}
+
+{% block title %}Ver libro {% endblock %}
+
+{% block contenido %}
+
+
+<div class="card border border-primary-subtle">
+    <div class="card-header text-center bg-primary text-white">
+
+        <h5 class="float-start">Datos Informativos</h5>
+        <a href="{% url 'app_calificaciones:verevaluaciones' distributivo.id periodoacademico.id %}" class="btn btn-warning float-end bi bi-reply-all-fill">Regresar</a>
+        <h5>{{periodoacademico.nombre}}</h5>
+            
+    </div>
+
+    <div class="card-body p-2">
+        <b>Docente:</b> {{distributivo.docente.nombres}} {{distributivo.docente.apellidos}}  
+        <br><b>Asignatura:</b> {{distributivo.asignatura.nombre}}
+        <br><b>Grado:</b> {{distributivo.asignatura.grado.nombre}}
+        <br><b>Paralelo:</b> {{distributivo.paralelo.nombre}}
+        <br><b>Total estudiantes:</b> {{ matriculas|length }}
+    </div>
+</div>
+
+<br>
+<form method="post" action="{% url 'app_calificaciones:guardarnotas' distributivo.id actividad.id %}">
+    {% csrf_token %}
+
+    <table class="table border border-info border-4">
+        <thead>
+
+            <td rowspan="2" class="text-center">
+                <b>Estudiantes</b>
+            </td>
+                
+            <td class="text-center">
+                <b>{{actividad.nombre}}</b>       
+            </td>
+        
+        </thead>
+
+        <tbody>
+            {% load filtros %}
+            {% load l10n %}
+
+            {% for matricula in matriculas %}
+                <tr>
+                    <td>{{matricula.estudiante.nombres}} {{matricula.estudiante.apellidos}}</td>
+                        
+                    <td class="text-center">
+                        <input type="number" name="{{ matricula.id }}" step="0.01" min="0" max="10" value="{{matricula|recuperar_nota_actividad_filtro:actividad|unlocalize}}" required>   
+                    </td>
+                
+                </tr>
+            {% endfor %}
+
+        </tbody>
+        
+    </table>
+
+    <div class="d-flex justify-content-center">
+
+        <button class="btn btn-primary" type="submit">Guardar</button>
+        
+    </div>
+
+</form>
+{% endblock %}
+
+

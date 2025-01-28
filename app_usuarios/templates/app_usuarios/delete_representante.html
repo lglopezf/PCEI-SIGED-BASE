@@ -1,0 +1,14 @@
+<!-- templates/representantes/delete_representante.html -->  
+{% extends 'inicio.html' %}  
+
+{% block title %}Eliminar Representante{% endblock %}  
+
+{% block contenido %}  
+<h2>Eliminar Representante</h2>  
+<p>¿Estás seguro de que deseas eliminar a {{ representante.nombres }} {{ representante.apellidos }}?</p>  
+<form method="POST">  
+    {% csrf_token %}  
+    <button type="submit" class="btn btn-danger">Eliminar</button>  
+    <a href="{% url 'app_usuarios:admin_representantes' %}" class="btn btn-secondary">Cancelar</a>  
+</form>  
+{% endblock %} 

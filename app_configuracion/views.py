@@ -18,7 +18,7 @@ def institucion_crear(request):
         messages.success(request, 'Institución creado exitosamente.')
         return redirect('app_configuracion:institucion')
     else:
-        return render(request, 'app_configuracion/configuracion_editar.html', {})
+        return render(request, 'app_configuracion/configuracion_editar.html', {'parametro': 1})
 
 def institucion_editar(request, id):
     institucion = Institucion.objects.get(id=id)
@@ -31,7 +31,7 @@ def institucion_editar(request, id):
         messages.success(request, 'Institución actualizado exitosamente.')
         return redirect('app_configuracion:institucion')
     else:
-        return render(request, 'app_configuracion/configuracion_editar.html', {'institucion': institucion})
+        return render(request, 'app_configuracion/configuracion_editar.html', {'institucion': institucion, 'parametro': 1})
 
 def institucion_eliminar(request, id):
     institucion = Institucion.objects.get(id=id)

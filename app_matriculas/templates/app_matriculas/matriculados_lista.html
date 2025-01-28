@@ -1,0 +1,50 @@
+{% extends 'app_matriculas/inicio.html' %}
+
+{% block titulo %} Listar Matrículas {% endblock %}
+
+{% block contenido %}
+<h1>Lista de Matrículas</h1>
+
+<a href="{% url 'app_matriculas:matriculas_crear' %}" class="btn btn-primary mb-3">Crear Matrícula</a>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Fecha de Nacimiento</th>
+      <th>Año Lectivo</th>
+      <th>Paralelo</th>
+      <th>Grado</th>
+      <th>Asignaturas</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in matriculas %}
+      <tr>
+        <td>{{ item.estudiante.nombres }}</td>
+        <td>{{ item.estudiante.apellidos }}</td>
+        <td>{{ item.estudiante.fecha_nacimiento }}</td>
+        <td>{{ item.aniolectivo.nombre }}</td>
+        <td>{{ item.paralelo.nombre }}</td>
+        <td>{{ item.paralelo.grado.nombre }}</td>
+        <td>
+          {% for asignatura in item.paralelo.grado.asignaturas.all %}
+            {{ asignatura.nombre }}<br>
+          {% endfor %}
+        </td>
+        <td>
+          <a href="{% url 'app_matriculas:matriculas_editar' item.id %}" class="btn btn-warning btn-sm">Editar</a>
+          <a href="{% url 'app_matriculas:matriculas_eliminar' item.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar esta matrícula?')">Eliminar</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>  
+          <td colspan="8">No existe información a mostrar</td> 
+      </tr> 
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

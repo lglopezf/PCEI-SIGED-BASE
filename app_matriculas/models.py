@@ -17,3 +17,130 @@ class Matricula(models.Model):
             matricula=self, 
             distributivo= distributivo, 
             libro_calificacion=self.paralelo.grado.libro_calificacion).first()
+    
+    def generar_calificacion_final(self, distributivo):
+        from app_calificaciones.models import Calificacionfinal, Calificacionperiodo 
+        from app_calificaciones.models import Calificacionevaluacion, Calificacionactividad
+
+        # Verificar que este asignado al grado un libro de calificaciones
+        libro_calificacion = self.paralelo.grado.libro_calificacion
+        if libro_calificacion is not None:
+            
+            # Guardo Calificacionfinal
+            calificacion_final = self.get_calificacion_final(distributivo)
+            if calificacion_final is None:
+                calificacion_final = Calificacionfinal()
+                calificacion_final.matricula = self
+                calificacion_final.distributivo = distributivo
+                calificacion_final.libro_calificacion = libro_calificacion
+                calificacion_final.save()
+
+            # Guardo Calificacionperiodo
+            for periodo_academico in libro_calificacion.periodos_academicos.all():
+                
+                calificacion_periodo = Calificacionperiodo.objects.filter(
+                    calificacion_final=calificacion_final, 
+                    periodo_academico=periodo_academico).first()
+                
+                if calificacion_periodo is None:
+                    calificacion_periodo = Calificacionperiodo()
+                    calificacion_periodo.calificacion_final = calificacion_final
+                    calificacion_periodo.periodo_academico = periodo_academico
+                    calificacion_periodo.save()
+
+                # Guardo Calificacionevaluacion
+                for evaluacion in periodo_academico.evaluaciones.all():
+
+                    calificacion_evaluacion = Calificacionevaluacion.objects.filter(
+                        calificacion_periodo=calificacion_periodo, 
+                        evaluacion=evaluacion).first()
+
+                    if calificacion_evaluacion is None:
+                        calificacion_evaluacion = Calificacionevaluacion()
+                        calificacion_evaluacion.calificacion_periodo = calificacion_periodo
+                        calificacion_evaluacion.evaluacion = evaluacion
+                        calificacion_evaluacion.save()
+
+                    # Guardo Calificacionactividad
+                    for actividad in evaluacion.actividades.all():
+
+                        calificacion_actividad = Calificacionactividad.objects.filter(
+                            calificacion_evaluacion=calificacion_evaluacion, 
+                            actividad=actividad).first()
+
+                        if calificacion_actividad is None:
+                            calificacion_actividad = Calificacionactividad()
+                            calificacion_actividad.calificacion_evaluacion = calificacion_evaluacion
+                            calificacion_actividad.actividad = actividad
+                            calificacion_actividad.save()
+
+    
+    def guardar_nota(self, actividad, nota):
+        from app_calificaciones.models import Calificacionactividad
+        
+        calificacion_actividad = Calificacionactividad.objects.filter(
+            calificacion_evaluacion__calificacion_periodo__calificacion_final__matricula=self, 
+            actividad=actividad).first()
+
+        if calificacion_actividad:
+            calificacion_actividad.nota = nota
+            calificacion_actividad.save()
+
+    
+    #hacer un metodo que se recupere la nota de actividad utilizando filter
+    def recuperar_nota_actividad(self, actividad):
+        from app_calificaciones.models import Calificacionactividad
+
+        # Filtrar la calificación de la actividad asociada a la matrícula
+        calificacion_actividad = Calificacionactividad.objects.filter(
+            calificacion_evaluacion__calificacion_periodo__calificacion_final__matricula=self,
+            actividad=actividad).first()
+        
+        # Retornar la nota si la calificación de la actividad existe, de lo contrario, vacío
+        if calificacion_actividad:
+            return calificacion_actividad.nota if calificacion_actividad.nota is not None else ''
+        return ''
+    
+    
+     #hacer un metodo que se recupere la nota de evaluacion utilizando filter
+    def recuperar_nota_evaluacion(self, evaluacion):
+        from app_calificaciones.models import Calificacionevaluacion
+
+        # Filtrar la calificación de la actividad asociada a la matrícula
+        calificacion_evaluacion = Calificacionevaluacion.objects.filter(
+            calificacion_periodo__calificacion_final__matricula=self,
+            evaluacion=evaluacion).first()
+        
+        # Retornar la nota si la calificación de la actividad existe, de lo contrario, vacío
+        if calificacion_evaluacion:
+            return calificacion_evaluacion.nota if calificacion_evaluacion.nota is not None else ''
+        return ''
+    
+    
+    #hacer un metodo que se recupere la nota de promedio utilizando filter
+    def recuperar_nota_periodo(self, periodo):
+        from app_calificaciones.models import Calificacionperiodo   
+
+        # Filtrar la calificación de la actividad asociada a la matrícula
+        calificacion_periodo = Calificacionperiodo.objects.filter(
+            calificacion_final__matricula=self,
+            periodo_academico=periodo).first()
+
+        # Retornar la nota si la calificación de la actividad existe, de lo contrario, vacío
+        if calificacion_periodo:
+            return calificacion_periodo.nota if calificacion_periodo.nota is not None else ''
+        return ''
+    
+    
+    #hacer un metodo que se recupere la nota de promedio de calificación final utilizando filter
+    def recuperar_nota_calificacionfinal(self):
+        from app_calificaciones.models import Calificacionfinal
+
+        # Filtrar la calificación de la actividad asociada a la matrícula
+        calificacion_final = Calificacionfinal.objects.filter(matricula=self).first()
+        
+        # Retornar la nota si la calificación de la actividad existe, de lo contrario, vacío
+        if calificacion_final:
+            return calificacion_final.nota if calificacion_final.nota is not None else ''
+        return ''
+   

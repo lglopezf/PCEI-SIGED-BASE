@@ -1,0 +1,23 @@
+<form method="post" action="{% url 'app_asistencias:registrar_asistencias' paralelo.id %}">
+    {% csrf_token %}
+    <input type="date" name="fecha" value="{{ fecha }}" required>
+    <table>
+        <thead>
+            <tr>
+                <th>Estudiante</th>
+                <th>Asistió</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for matricula in matriculas %}
+            <tr>
+                <td>{{ matricula.estudiante }}</td>
+                <td>
+                    <input type="checkbox" name="asistio_{{ matricula.id }}">
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit">Guardar asistencias</button>
+</form>

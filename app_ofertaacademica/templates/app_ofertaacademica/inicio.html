@@ -6,24 +6,12 @@
     <div class="row">
         <div class="col-6 mb-2">
             <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle">
-                    Años lectivos
+                <div class="card-header bg-primary-subtle" >
+                    <b class="text-aling" >Años Lectivos</b>
                 </div>
-                <div class="card-body">
-                <p class="card-text">Gestión de los años lectivos de la institución</p>
-                <a href="#" class="btn btn-primary">Administrar</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6 mb-2">
-            <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle">
-                    Paralelos
-                </div>
-                <div class="card-body">
-                <p class="card-text">Gestión de los paralelos por año lectivo</p>
-                <a href="#" class="btn btn-primary">Administrar</a>
+                <div class="card-body" >
+                <p class="card-text">Gestión de los Años Lectivos de la Institución</p>
+                <a href="{% url 'app_ofertaacademica:admin_aniolectivo' %}" class="btn btn-primary">Administrar</a>
                 </div>
             </div>
         </div>
@@ -31,15 +19,26 @@
         <div class="col-6 mb-2">
             <div class="card border border-primary-subtle">
                 <div class="card-header bg-primary-subtle">
-                    Distributivos
+                    <b class="card-text">Paralelos</b>
                 </div>
                 <div class="card-body">
-                <p class="card-text">Gestión de los distributivos por año lectivo</p>
-                <a href="#" class="btn btn-primary">Administrar</a>
+                <p class="card-text">Gestión de los Paralelos por Año Lectivo</p>
+                <a href="{% url 'app_ofertaacademica:admin_paralelo' %}" class="btn btn-primary">Administrar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 mb-2">
+            <div class="card border border-primary-subtle">
+                <div class="card-header bg-primary-subtle">
+                    <b class="card-text">Distributivos</b>
+                </div>
+                <div class="card-body">
+                <p class="card-text">Gestión de los Distributivos por Año Lectivo</p>
+                <a href="{% url 'app_ofertaacademica:admin_distributivo'%}" class="btn btn-primary">Administrar</a>
                 </div>
             </div>
         </div>
     </div>
+    
 {% endblock %}
-
-

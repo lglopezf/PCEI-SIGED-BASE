@@ -1,0 +1,14 @@
+<!-- templates/representantes/create_representante.html -->  
+{% extends 'inicio.html' %}  
+
+{% block title %}Crear Representante{% endblock %}  
+
+{% block contenido %}  
+<h2>Crear Representante</h2>  
+<form method="POST">  
+    {% csrf_token %}  
+    {{ form.as_p }}  
+    <button type="submit" class="btn btn-primary">Guardar</button>  
+    <a href="{% url 'app_usuarios:admin_representantes' %}" class="btn btn-secondary">Volver</a>  
+</form>  
+{% endblock %}  

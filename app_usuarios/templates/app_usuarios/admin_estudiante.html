@@ -1,0 +1,43 @@
+<!-- templates/app_usuarios/admin_estudiantes.html -->  
+{% extends 'inicio.html' %}  
+
+{% block title %}Administrar Estudiantes{% endblock %}  
+
+{% block contenido %}  
+<h2>Administrar Estudiantes</h2>  
+<a href="{% url 'app_usuarios:create_estudiante' %}" class="btn btn-success">Agregar Estudiante</a> 
+<a href="{% url 'app_usuarios:usuarios' %}" class="btn btn-secondary">Volver</a>  
+<table class="table">  
+    <thead>  
+        <tr>  
+            <th>ID</th>  
+            <th>Nombres</th>  
+            <th>Apellidos</th>  
+            <th>Identificación</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Correo Institucional</th>
+            <th>Acciones</th>  
+        </tr>  
+    </thead>  
+    <tbody>  
+        {% for estudiante in estudiantes %}  
+        <tr>  
+            <td>{{ estudiante.id }}</td>  
+            <td>{{ estudiante.nombres }}</td>  
+            <td>{{ estudiante.apellidos }}</td>  
+            <td>{{ estudiante.identificacion }} </td>
+            <td>{{ estudiante.fecha_nacimiento }} </td>
+            <td>{{ estudiante.correo_institucional }} </td>
+            <td>  
+                <a href="{% url 'app_usuarios:update_estudiante' estudiante.id %}" class="btn btn-warning">Editar</a>  
+                <a href="{% url 'app_usuarios:delete_estudiante' estudiante.id %}" class="btn btn-danger">Eliminar</a>  
+            </td>  
+        </tr>  
+        {% empty %}
+            <tr>  
+                <td colspan="7">No existe información a mostrar</td> 
+            </tr> 
+        {% endfor %}  
+    </tbody>  
+</table>  
+{% endblock %}  

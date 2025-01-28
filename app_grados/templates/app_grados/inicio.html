@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
                 <p class="card-text">Gestión de los grados de la institución</p>
-                <a href="#" class="btn btn-primary">Administrar</a>
+                <a href="{% url 'app_grados:grados_listar' %}" class="btn btn-primary">Administrar</a>
                 </div>
             </div>
         </div>
@@ -23,11 +23,9 @@
                 </div>
                 <div class="card-body">
                 <p class="card-text">Gestión de las asignaturas de la institución</p>
-                <a href="#" class="btn btn-primary">Administrar</a>
+                <a href="{% url 'app_grados:asignaturas_listar' %}" class="btn btn-primary">Administrar</a>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
-
-
