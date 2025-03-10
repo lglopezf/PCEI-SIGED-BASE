@@ -1,62 +1,84 @@
+{% extends 'inicio.html' %}  
 
-{% extends 'inicio.html' %}
+{% block title %}Actividades {% endblock %}  
 
-{% block title %}Actividades {% endblock %}
-
-{% block contenido %}
-<div class="card shadow mb-4">
-    <div class="card-body">
-        <div class="card border border-primary-subtle">
-            <div class="card-header bg-primary-subtle">
-                <p class="text-center"><b>Lista de Evaluaciones</b></p>
-            </div>
-            <p></p>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a href="evaluacion_crear" class="btn btn-primary me-md-2">Crear nueva Evaluación</a>
-            </div>
-            <div class="card-body">
-                {% if not evaluaciones %}
-                    <div class="alert alert-info">No hay atributos</div>
-                {% else %}
-                    <table id="tbl" class="table table-striped table-hover" style="background-color: rgb(222, 235, 249);">
-                        <thead>
-                            <tr>
-                                <th>Periodo Academico</th>
-                                <th>Nombre</th>
-                                <th>Ponderado</th>
-                                <th>Detalles</th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
+{% block contenido %}  
+<style>  
+    .titulo-estilo {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+        padding: 15px; /* Espaciado interno */  
+        border-radius: 8px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        font-size: 2em; /* Tamaño de fuente más grande */  
+        margin-bottom: 20px; /* Espaciado inferior */  
+    }  
     
-                            {% for item in evaluaciones %}
-                                <tr>
-                                    <td>{{item.periodo_academico}}</td>
-                                    <td>{{item.get_nombre_display}}</td>
-                                    <td>{{item.ponderado|default:''}}</td>
-                                    <td>
-                                        <a href="{% url 'app_librocalificaciones:evaluacion_editar' item.id %}" class="btn btn-success btn-sm">Editar</a>
-                                        <a href="{% url 'app_librocalificaciones:evaluacion_eliminar' item.id %}" class="btn btn-danger btn-sm">Eliminar</a>
-                                    
-                                    </td>
-                                </tr>
-                            {% empty %}
-                                <tr>  
-                                    <td colspan="4">No existe información a mostrar</td> 
-                                </tr>
-                            {% endfor %}
-                      
-                        </tbody>
-                    </table>
-                {% endif %}
-            </div>
-        </div>
-        
-    </div>
-    <div class="card-header"style="background-color: rgb(222, 235, 249);">
-        <a href="{% url 'app_librocalificaciones:inicio' %}" class="d-grid gap-2 col-1 mx-auto"><i class="btn btn-primary btn-sm"> Regresar</i></a>
-    </div>
-</div>
+    .table {  
+    border-radius: 8px; /* Bordes redondeados para la tabla */  
+    overflow: hidden; /* Esconde bordes que sobresalen */  
+}  
 
+.table th {  
+    background-color: rgb(22, 87, 117); /* Azul pastel para encabezados */  
+    color: #FFFFFF; /* Texto blanco para contraste */  
+}  
+
+.table td, .table th {  
+    text-align: center; /* Centrar texto en las celdas */  
+}  
+
+.btn-custom {  
+    margin-right: 5px;  /* Espaciado entre botones para mejor visualización */  
+}  
+</style>  
+
+
+    <h1 class="titulo-estilo text-center">Administrar evaluaciones</h1>  
+    
+    <div class="d-flex justify-content-between mb-3">  
+        <div></div> <!-- Espacio vacío para alineación -->  
+        <a href="evaluacion_crear" class="btn btn-primary">Agregar Evaluación</a>
+    </div>  
+            
+    {% if not evaluaciones %}  
+        <div class="alert alert-info">No hay información a mostrar</div>  
+    {% else %}  
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>  
+                    <tr>  
+                        <th >Periodo Academico</th>  
+                        <th >Nombre</th>  
+                        <th >Ponderado</th>  
+                        <th >Detalles</th>  
+                    </tr>  
+                </thead>  
+                <tbody>  
+                    {% for item in evaluaciones %}  
+                        <tr>  
+                            <td>{{item.periodo_academico}}</td>  
+                            <td>{{item.get_nombre_display}}</td>  
+                            <td>{{item.ponderado|default:''}}</td>  
+                            <td> 
+                                <div class="btn-group">  
+                                    <a href="{% url 'app_librocalificaciones:evaluacion_editar' item.id %}" class="btn btn-warning btn-sm btn-custom">Editar</a>  
+                                    <a href="{% url 'app_librocalificaciones:evaluacion_eliminar' item.id %}" class="btn btn-danger btn-sm btn-custom">Eliminar</a>  
+                                </div>
+                            </td>  
+                        </tr>  
+                    {% empty %}  
+                        <tr>  
+                            <td colspan="4">No existe información a mostrar</td>   
+                        </tr>  
+                    {% endfor %}  
+                </tbody>  
+            </table>
+        </div>  
+    {% endif %}  
+            
+    <div class="text-center mb-3">  
+        <a href="{% url 'app_librocalificaciones:libro_calificaciones' %}" class="btn btn-secondary">Regresar</a>  <!-- Eliminé el enlace adicional -->  
+    </div>  
+ 
 {% endblock %}

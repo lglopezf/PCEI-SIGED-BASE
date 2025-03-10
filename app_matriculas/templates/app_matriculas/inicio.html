@@ -3,19 +3,42 @@
 {% block title %}Matrículas{% endblock %}
 
 {% block contenido %}
+<style>  
+    .titulo-estilo {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+        padding: 15px; /* Espaciado interno */  
+        border-radius: 8px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        font-size: 2em; /* Tamaño de fuente más grande */  
+        margin-bottom: 20px; /* Espaciado inferior */  
+    }  
+    
+    .card {  
+        border-radius: 8px; /* Bordes redondeados para las tarjetas */  
+        box-shadow: 0 4px 8px rgba(245, 241, 241, 0.1); /* Sombra para las tarjetas */  
+    }  
+    
+    .card-header {  
+        background-color: rgb(22, 87, 117); /* Color del encabezado */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+    }  
+    </style>  
+
     <div class="row">
-        <div class="col-6 mb-2">
-            <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle">
-                    Matrículas
+        <div class="col-md-6 col-sm-12 mb-2">  
+            <div class="card border border-primary-subtle">  
+                <div class="card-header">  
+                    <b>Matrículas</b>  
                 </div>
                 <div class="card-body">
-                <p class="card-text">Gestión de las matrículas de los estudiantes</p>
-                <a href="{% url 'app_matriculas:matriculados_lista' %}" class="btn btn-primary">Administrar</a>
+                    <p class="card-text">Gestión de las matrículas de los estudiantes</p>
+                    <a href="{% url 'app_matriculas:matriculados_lista' %}" class="btn btn-primary">Administrar</a>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
 
 

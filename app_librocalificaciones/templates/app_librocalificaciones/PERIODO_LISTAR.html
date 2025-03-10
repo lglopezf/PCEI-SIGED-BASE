@@ -1,0 +1,86 @@
+{% extends 'inicio.html' %}  
+
+{% block title %}Periodo Académico{% endblock %}  
+
+{% block contenido %}  
+<style>  
+    .titulo-estilo {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+        padding: 15px; /* Espaciado interno */  
+        border-radius: 8px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        font-size: 2em; /* Tamaño de fuente más grande */  
+        margin-bottom: 20px; /* Espaciado inferior */  
+    }  
+    
+    .table {  
+    border-radius: 8px; /* Bordes redondeados para la tabla */  
+    overflow: hidden; /* Esconde bordes que sobresalen */  
+}  
+
+.table th {  
+    background-color: rgb(22, 87, 117); /* Azul pastel para encabezados */  
+    color: #FFFFFF; /* Texto blanco para contraste */  
+}  
+
+.table td, .table th {  
+    text-align: center; /* Centrar texto en las celdas */  
+}  
+
+.btn-custom {  
+    margin-right: 5px; /* Espaciado entre botones para mejor visualización */ 
+}  
+</style>  
+
+
+    <h1 class="titulo-estilo text-center">Administrar periodos académicos</h1>  
+    
+    <div class="d-flex justify-content-between mb-3"> 
+        <div></div> <!-- Espacio vacío para alineación -->
+        <a href="{% url 'app_librocalificaciones:PERIODO_CREAR' %}" class="btn btn-primary">Agregar Periodo Académico</a>  
+    </div>  
+                
+    {% if not periodo %}  
+        <div class="alert alert-info">No hay información a mostrar</div>  
+    {% else %} 
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">  
+                <thead>  
+                    <tr>  
+                        <th>Libro de Calificación</th>  
+                        <th>Nombre</th>  
+                        <th>Orden</th>  
+                        <th>Detalles</th>  
+                    </tr>  
+                </thead>  
+                <tbody>  
+                    {% for item in periodo %}  
+                    <tr>  
+                            <td>{{ item.librocalificacion }}</td>  
+                            <td>{{ item.nombre }}</td>  
+                            <td>{{ item.orden }}</td>  
+                            <td>
+                                <div class="btn-group"> 
+                                    <a href="{% url 'app_librocalificaciones:PERIODO_EDITAR' item.id %}" class="btn btn-warning btn-sm  btn-custom">Editar</a>  
+                                    <a href="{% url 'app_librocalificaciones:PERIODO_ELIMINAR' item.id %}" class="btn btn-danger btn-sm btn-custom">Eliminar</a>  
+                                </div> 
+                            </td>  
+                        </tr>  
+                    {% empty %}  
+                        <tr>  
+                            <td colspan="4" class="text-center">No existe información a mostrar</td>   
+                        </tr>  
+                    {% endfor %}  
+                </tbody>  
+            </table>  
+        </div> 
+    {% endif %}  
+            
+    <div class="text-center mb-3">
+        <a href="{% url 'app_librocalificaciones:libro_calificaciones' %}" class="d-grid gap-2 col-1 mx-auto" style="text-decoration: none;">  
+            <button class="btn btn-secondary btn-succes">Regresar</button>  
+        </a>  
+    </div>  
+      
+{% endblock %}

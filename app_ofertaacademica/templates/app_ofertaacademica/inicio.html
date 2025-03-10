@@ -1,44 +1,43 @@
-{% extends 'inicio.html' %}
+{% extends 'inicio.html' %}  
 
-{% block title %}Oferta académica{% endblock %}
+{% block title %}Oferta Académica{% endblock %}  
 
-{% block contenido %}
-    <div class="row">
-        <div class="col-6 mb-2">
-            <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle" >
-                    <b class="text-aling" >Años Lectivos</b>
-                </div>
-                <div class="card-body" >
-                <p class="card-text">Gestión de los Años Lectivos de la Institución</p>
-                <a href="{% url 'app_ofertaacademica:admin_aniolectivo' %}" class="btn btn-primary">Administrar</a>
-                </div>
-            </div>
-        </div>
+{% block contenido %}  
+<div class="row">  
+    <div class="col-md-6 col-sm-12 mb-2">  
+        <div class="card border border-primary-subtle">  
+            <div class="card-header text-white" style="background-color:rgb(22, 87, 117);">  
+                <b>Años Lectivos</b>  
+            </div>  
+            <div class="card-body">  
+                <p class="card-text">Gestión de los Años Lectivos de la Institución</p>  
+                <a href="{% url 'app_ofertaacademica:admin_aniolectivo' %}" class="btn btn-primary">Administrar</a>  
+            </div>  
+        </div>  
+    </div>  
 
-        <div class="col-6 mb-2">
-            <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle">
-                    <b class="card-text">Paralelos</b>
-                </div>
-                <div class="card-body">
-                <p class="card-text">Gestión de los Paralelos por Año Lectivo</p>
-                <a href="{% url 'app_ofertaacademica:admin_paralelo' %}" class="btn btn-primary">Administrar</a>
-                </div>
-            </div>
-        </div>
+    <div class="col-md-6 col-sm-12 mb-2">  
+        <div class="card border border-primary-subtle">  
+            <div class="card-header text-white" style="background-color:rgb(22, 87, 117);">  
+                <b>Paralelos</b>  
+            </div>  
+            <div class="card-body">  
+                <p class="card-text">Gestión de los Paralelos por Año Lectivo</p>  
+                <a href="{% url 'app_ofertaacademica:admin_paralelo' %}" class="btn btn-primary">Administrar</a>  
+            </div>  
+        </div>  
+    </div>  
 
-        <div class="col-6 mb-2">
-            <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle">
-                    <b class="card-text">Distributivos</b>
-                </div>
-                <div class="card-body">
-                <p class="card-text">Gestión de los Distributivos por Año Lectivo</p>
-                <a href="{% url 'app_ofertaacademica:admin_distributivo'%}" class="btn btn-primary">Administrar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
+    <div class="col-md-6 col-sm-12 mb-2">  
+        <div class="card border border-primary-subtle">  
+            <div class="card-header text-white" style="background-color:rgb(22, 87, 117);">  
+                <b>Distributivos</b>  
+            </div>  
+            <div class="card-body">  
+                <p class="card-text">Gestión de los Distributivos por Año Lectivo</p>  
+                <a href="{% url 'app_ofertaacademica:admin_distributivo' %}" class="btn btn-primary">Administrar</a>  
+            </div>  
+        </div>  
+    </div>  
+</div>  
 {% endblock %}

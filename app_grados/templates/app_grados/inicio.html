@@ -1,31 +1,56 @@
-{% extends 'inicio.html' %}
+{% extends 'inicio.html' %}  
 
-{% block title %}Grados{% endblock %}
+{% block title %}Grados{% endblock %}  
 
-{% block contenido %}
-    <div class="row">
-        <div class="col-6 mb-2">
-            <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle">
-                    Grados
-                </div>
-                <div class="card-body">
-                <p class="card-text">Gestión de los grados de la institución</p>
-                <a href="{% url 'app_grados:grados_listar' %}" class="btn btn-primary">Administrar</a>
-                </div>
-            </div>
-        </div>
+{% block contenido %}  
+<style>  
+.titulo-estilo {  
+    background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+    color: #FFFFFF; /* Texto blanco para contraste */  
+    padding: 15px; /* Espaciado interno */  
+    border-radius: 8px; /* Bordes redondeados */  
+    text-align: center; /* Centrar texto */  
+    font-size: 2em; /* Tamaño de fuente más grande */  
+    margin-bottom: 20px; /* Espaciado inferior */  
+}  
 
-        <div class="col-6 mb-2">
-            <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle">
-                    Asignaturas
-                </div>
-                <div class="card-body">
-                <p class="card-text">Gestión de las asignaturas de la institución</p>
-                <a href="{% url 'app_grados:asignaturas_listar' %}" class="btn btn-primary">Administrar</a>
-                </div>
-            </div>
-        </div>
-    </div>
+.card-header {  
+    background-color:rgb(22, 87, 117);  /* Color de fondo azul pastel para el encabezado de las tarjetas */  
+    color: #FFFFFF; /* Color de texto blanco */  
+    font-weight: bold; /* Texto en negrita */  
+}  
+
+.card {  
+    border-radius: 8px; /* Bordes redondeados para las tarjetas */  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para las tarjetas */  
+}  
+</style>  
+
+
+
+<div class="row">  
+    <div class="col-md-6 col-sm-12 mb-2">  
+        <div class="card border border-primary-subtle">  
+            <div class="card-header">  
+                Grados  
+            </div>  
+            <div class="card-body">  
+                <p class="card-text">Gestión de los grados de la institución</p>  
+                <a href="{% url 'app_grados:grados_listar' %}" class="btn btn-primary">Administrar</a>  
+            </div>  
+        </div>  
+    </div>  
+
+    <div class="col-md-6 col-sm-12 mb-2">  
+        <div class="card border border-primary-subtle">  
+            <div class="card-header">  
+                Asignaturas  
+            </div>  
+            <div class="card-body">  
+                <p class="card-text">Gestión de las asignaturas de la institución</p>  
+                <a href="{% url 'app_grados:asignaturas_listar' %}" class="btn btn-primary">Administrar</a>  
+            </div>  
+        </div>  
+    </div>  
+</div>  
 {% endblock %}

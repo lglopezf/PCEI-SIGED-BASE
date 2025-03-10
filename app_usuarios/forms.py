@@ -13,7 +13,12 @@ class DocenteForm(forms.ModelForm):
             'correo_institucional': forms.EmailInput(attrs={'class': 'form-control','placeholder':'Complete este campo'}),   
             'celular': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Complete este campo'}),   
             'direccion': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Complete este campo'}),   
-        }  
+        } 
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.fecha_nacimiento:
+            self.initial['fecha_nacimiento'] = self.instance.fecha_nacimiento.strftime('%Y-%m-%d')
 
 class EstudianteForm(forms.ModelForm):  
     class Meta:  
@@ -26,6 +31,11 @@ class EstudianteForm(forms.ModelForm):
             'fecha_nacimiento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control', 'placeholder':'Complete este campo'}),   
             'correo_institucional': forms.EmailInput(attrs={'class': 'form-control','placeholder':'Complete este campo'}),    
         }  
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.fecha_nacimiento:
+            self.initial['fecha_nacimiento'] = self.instance.fecha_nacimiento.strftime('%Y-%m-%d')
 
 class RepresentanteForm(forms.ModelForm):  
     class Meta:  
@@ -40,3 +50,8 @@ class RepresentanteForm(forms.ModelForm):
             'celular': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Complete este campo'}),   
             'direccion': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Complete este campo'}),  
         }  
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.fecha_nacimiento:
+            self.initial['fecha_nacimiento'] = self.instance.fecha_nacimiento.strftime('%Y-%m-%d')

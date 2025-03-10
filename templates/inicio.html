@@ -1,123 +1,138 @@
-<html>
-    <head>
-        <title>{% block title %}SIGED{% endblock %}</title>
-        {% load static %}
-        <link rel="stylesheet" href="{% static 'general.css' %}">
+<html>  
+<head>  
+    <title>{% block title %}SIGED{% endblock %}</title>  
+    {% load static %} 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="stylesheet" href="{% static 'bootstrap5.3.3/css/bootstrap.css' %}">
-        <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'general.css' %}">  
+    <link rel="stylesheet" href="{% static 'bootstrap5.3.3/css/bootstrap.css' %}">  
+    <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/font/bootstrap-icons.css' %}">  
 
-        <script src="{% static 'bootstrap5.3.3/js/bootstrap.js' %}"></script>
-        <script src="{% static 'bootstrap5.3.3/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'bootstrap5.3.3/js/bootstrap.js' %}"></script>  
+    <script src="{% static 'bootstrap5.3.3/js/bootstrap.bundle.js' %}"></script>  
 
-        <!-- CSS de DataTables -->
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <!-- CSS de DataTables -->  
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">  
 
-        <!-- JS de jQuery (DataTables depende de jQuery) -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- JS de jQuery (DataTables depende de jQuery) -->  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
 
-        <!-- JS de DataTables -->
-        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <!-- JS de DataTables -->  
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>  
 
-    </head>
-    <body> 
-        {% if messages %}
-            <div>
-                {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        
-        <header class="d-flex align-items-center justify-content-center">
-            <h2>Sistemas de Información de Gestión Educativa (SIGED)</h2>
-        </header>
+    <style>  
+        body {  
+            background-color: rgb(252, 254, 255); /* Fondo azul pastel para toda la página */  
+        }  
+        aside {  
+            background-color: rgb(47, 56, 95); /* Fondo azul oscuro para el lado izquierdo */  
+            height: 100vh; /* Asegura que el fondo ocupe toda la altura de la ventana */  
+            width: 250px; /* Ancho fijo para el menú lateral */  
+            padding: 20px; /* Espaciado interno */  
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra opcional */  
+        }  
+        header {  
+            background-color: rgb(16, 25, 56); /* Mismo fondo que el aside */  
+            padding: 20px; /* Espaciado interno */  
+        }  
+        nav {  
+            background-color: rgb(16, 25, 56); /* Mismo fondo que el header */  
+            padding: 10px; /* Espaciado interno */  
+            text-align: center; /* Centrar el enlace */  
+        }  
+        .nav-link {  
+            color: white; /* Cambiar el color de texto de los enlaces a blanco */  
+        }  
+        .nav-link:hover {  
+            color: #f0f0f0; /* Cambiar el color al pasar el mouse sobre el enlace */  
+        }  
+        .white-text {  
+            color: white; /* Clase para texto blanco */  
+        }  
+        main {  
+            display: flex;  
+        }  
+        section {  
+            flex: 1; /* Permite que la sección principal ocupe el resto del espacio */  
+            padding: 20px; /* Espaciado interno */  
+        }  
+    </style>  
+</head>  
+<body>   
+    <header class="d-flex align-items-center justify-content-center">  
+        <h2>Sistemas de Información de Gestión Educativa (SIGED)</h2> 
+    </header>  
 
-        <nav class="d-flex align-items-center justify-content-center">
-            <a href="https://unl.edu.ec/" target="_blank">Universidad Nacional de Loja</a>
-        </nav>
+    <nav class="d-flex align-items-center justify-content-center">  
+        <a class="white-text" href="https://unl.edu.ec/" target="_blank">Universidad Nacional de Loja</a>  
+    </nav>  
 
-        <main>
-            <aside>
-                <div class="align-items-start">
-                    <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        
-                        <a class="nav-link text-start {%if not parametro %} active {% endif %}"  
-                        href="{% url 'inicio' %}">
-                            <i class="bi bi-display-fill"></i> Inicio
-                        </a>
+    <main>  
+        <aside>  
+            <div class="align-items-start">  
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">  
+                    <a class="nav-link text-start {%if not parametro %} active {% endif %}" href="{% url 'inicio' %}">  
+                        <i class="bi bi-display-fill"></i> Inicio  
+                    </a>  
+                    <a class="nav-link text-start {%if parametro == 1 %} active {% endif %}" href="{% url 'app_configuracion:institucion' %}">  
+                        <i class="bi bi-house-fill"></i> Institución educativa  
+                    </a>  
+                    <a class="nav-link text-start {%if parametro == 2 %} active {% endif %}" href="{% url 'app_usuarios:usuarios' %}">  
+                        <i class="bi bi-person-fill"></i> Usuarios  
+                    </a>  
+                    <a class="nav-link text-start {%if parametro == 3 %} active {% endif %}" href="{% url 'app_grados:grados' %}">  
+                        <i class="bi bi-stack"></i> Grados o cursos  
+                    </a>  
+                    <a class="nav-link text-start {%if parametro == 4 %} active {% endif %}" href="{% url 'app_ofertaacademica:oferta_academica' %}">  
+                        <i class="bi bi-plus-square"></i> Oferta académica  
+                    </a>  
+                    <a class="nav-link text-start {%if parametro == 6 %} active {% endif %}" href="{% url 'app_matriculas:matriculas' %}">  
+                        <i class="bi bi-people-fill"></i> Matrículas  
+                    </a>
+                    <a class="nav-link text-start {%if parametro == 5 %} active {% endif %}" href="{% url 'app_librocalificaciones:libro_calificaciones' %}">  
+                        <i class="bi bi-ui-checks-grid"></i> Libro calificaciones  
+                    </a>  
+                    <a class="nav-link text-start {%if parametro == 8 %} active {% endif %}" href="{% url 'app_calificaciones:calificaciones' %}">  
+                        <i class="bi bi-file-earmark-check-fill"></i> Calificaciones  
+                    </a>  
+                    <a class="nav-link text-start {%if parametro == 7 %} active {% endif %}" href="{% url 'app_asistencias:paralelos' %}">  
+                        <i class="bi bi-calendar-plus-fill"></i> Asistencias  
+                    </a>  
+                </div>  
+            </div>  
+        </aside>  
 
-                        <a class="nav-link text-start {%if parametro == 1 %} active {% endif %}"  
-                        href="{% url 'app_configuracion:institucion' %}">
-                            <i class="bi bi-house-fill"></i> Institución educativa
-                        </a>
+        <section>  
+            <article>  
+                <div class="align-items-start">  
+                    <div class="tab-content" id="v-pills-tabContent">  
+                        <div class="row ps-3 pe-3 pt-3" style="width: 100%">  
+                            <div class="col-12">  
+                                {% if messages %}  
+                                    <div>  
+                                        {% for message in messages %}  
+                                            <div class="alert alert-{{ message.tags }}">  
+                                                {{ message }}  
+                                            </div>  
+                                        {% endfor %}  
+                                    </div>  
+                                {% endif %} 
+                                {% block contenido %}  
+                                {% endblock contenido %}  
+                            </div>  
+                        </div>  
+                    </div>  
+                </div>  
+            </article>  
+        </section>  
+    </main>  
 
-                        <a class="nav-link text-start {%if parametro == 2 %} active {% endif %}"  
-                        href="{% url 'app_usuarios:usuarios' %}">
-                            <i class="bi bi-person-fill"></i> Usuarios
-                        </a>
+    <footer class="d-flex align-items-center justify-content-center">  
+        <h5>2024 - 6 ciclo A - Programacion web</h5>  
+    </footer>  
+</body>  
 
-                        <a class="nav-link text-start {%if parametro == 3 %} active {% endif %}"  
-                        href="{% url 'app_grados:grados' %}">
-                            <i class="bi bi-stack"></i> Grados o cursos
-                        </a>
-
-                        <a class="nav-link text-start {%if parametro == 4 %} active {% endif %}"  
-                        href="{% url 'app_ofertaacademica:oferta_academica' %}">
-                            <i class="bi bi-plus-square"></i> Oferta académica
-                        </a>
-
-                        <a class="nav-link text-start {%if parametro == 5 %} active {% endif %}"  
-                        href="{% url 'app_librocalificaciones:libro_calificaciones' %}">
-                            <i class="bi bi-ui-checks-grid"></i> Libro de calificaciones
-                        </a>
-
-                        <a class="nav-link text-start {%if parametro == 6 %} active {% endif %}"  
-                        href="{% url 'app_matriculas:matriculas' %}">
-                            <i class="bi bi-people-fill"></i> Matrículas
-                        </a>
-
-                        <a class="nav-link text-star {%if parametro == 7 %} active {% endif %}" 
-                        href="{% url 'app_asistencias:paralelos' %}">
-                            <i class="bi bi-calendar-plus-fill"></i> Asistencias
-                        </a>
-
-                        <a class="nav-link text-start {%if parametro == 8 %} active {% endif %}" 
-                        href="{% url 'app_calificaciones:calificaciones' %}">
-                            <i class="bi bi-file-earmark-check-fill"></i> Calificaciones
-                        </a>
-
-                       </div>
-                </div>
-            </aside>
-
-            <section>
-                <article>
-                    <div class="align-items-start">
-                        <div class="tab-content" id="v-pills-tabContent">
-                            <div class="row ps-3 pe-3 pt-3" style="width: 100%">
-                                <div class="col-12">
-                                    {% block contenido %} 
-                                    
-                                    {% endblock contenido %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </section>
-
-        </main>
-
-        <footer class="d-flex align-items-center justify-content-center">
-            <h5>2024 - 6 ciclo A - Programacion web</h5>
-        </footer>
-       
-    </body>
-
-    {% block extra_js %}
-
-    {% endblock %}
+{% block extra_js %}  
+{% endblock %}  
 </html>

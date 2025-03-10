@@ -1,76 +1,93 @@
-{% extends 'inicio.html' %}
+{% extends 'inicio.html' %}  
 
-{% block title %}Paralelos Disponibles{% endblock %}
+{% block title %}Paralelos Disponibles{% endblock %}  
 
-{% block contenido %}
-<div class="container mt-4">
-    <div class="card mb-4">
-        <div class="card-body">
-            <div class="d-flex align-items-center">
-                <i class="bi bi-info-circle fs-4 me-2 text-info"></i>
-                <div>
-                    <h6 class="mb-0">Instrucciones:</h6>
-                    <p class="mb-0 text-muted">
-                        • Ver asistencias: Consulta el historial de asistencias del paralelo<br>
-                        • Tomar lista: Registra la asistencia del día para el paralelo
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+{% block contenido %}  
+<style>  
+    .titulo-estilo {  
+        background-color:rgb(22, 87, 117); /* Azul pastel para el estilo del título */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+        padding: 15px; /* Espaciado interno */  
+        border-radius: 8px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        margin-bottom: 20px; /* Espaciado inferior */  
+    }  
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="mb-0">Paralelos disponibles</h1>
-        <span class="badge bg-primary rounded-pill">
-            Total: {{ paralelos|length }}
-        </span>
+    .titulo-paralelos {  
+        background-color: rgb(22, 87, 117); /* Color de fondo para el título de paralelos disponibles */  
+        color: #FFFFFF; /* Color del texto */  
+        font-size: 24px; /* Tamaño de fuente más grande */  
+        padding: 10px; /* Espaciado interno del título */  
+        border-radius: 5px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        margin-bottom: 15px; /* Espaciado inferior */  
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */  
+    }  
+
+    .card {  
+        border-radius: 8px; /* Bordes redondeados para tarjetas */  
+    }  
+
+    .card-header {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el encabezado de la tarjeta */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+    }  
+    .table th {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para encabezados */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+    }
+</style>  
+
+<div class="container mt-4">  
+    <h1 class="titulo-paralelos">Asistencias</h1>  
+    <div class="d-flex align-items-center">  
+        <i class="bi bi-info-circle fs-4 me-2 text-info"></i>  
+        <div>  
+            <h6 class="mb-0">Instrucciones:</h6>  
+            <p class="mb-0 text-muted">  
+                • Ver asistencias: Consulta el historial de asistencias del paralelo<br>  
+                • Tomar lista: Registra la asistencia del día para el paralelo  
+            </p>  
+        </div>  
+    </div>  
+    <br>
+    <!-- Nueva sección de tabla para más detalles -->  
+    <div class="table-responsive">
+        <table class="table">  
+            <thead>  
+                <tr>   
+                    <th>Nombre del Paralelo</th>  
+                    <th>Número de Estudiantes</th>  
+                    <th>Acciones</th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                {% if paralelos %}  
+                    {% for paralelo in paralelos %}  
+                    <tr>  
+                        <td>{{ paralelo.nombre }}</td>  
+                        <td>{{ paralelo.matriculas.count }}</td>    
+                        <td>  
+                            <div class="d-grid gap-2">  
+                                <a href="{% url 'app_asistencias:asistencias_paralelo' paralelo.id %}" class="btn btn-outline-primary">  
+                                    <i class="bi bi-calendar-check me-2"></i>Ver asistencias  
+                                </a>  
+                                <a href="{% url 'app_asistencias:tomar_lista' paralelo.id %}" class="btn btn-success">  
+                                    <i class="bi bi-check-circle me-2"></i>Tomar lista  
+                                </a>  
+                            </div>  
+                        </td>  
+                    </tr>  
+                    {% endfor %}  
+                {% else %}  
+                    <tr>  
+                        <td colspan="3" class="text-center">No hay paralelos disponibles en este momento.</td>  
+                    </tr>  
+                {% endif %}  
+            </tbody>  
+        </table>  
     </div>
     
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for paralelo in paralelos %}
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title d-flex justify-content-between align-items-center">
-                        {{ paralelo.nombre }}
-                        <i class="bi bi-bookmark-star text-primary"></i>
-                    </h5>
-                    <p class="card-text text-muted">
-                        <i class="bi bi-people me-2"></i>Paralelo
-                    </p>
-                </div>
-                <div class="card-footer bg-transparent pt-0 border-0">
-                    <div class="d-grid gap-2">
-                        <a href="{% url 'app_asistencias:asistencias_paralelo' paralelo.id %}" 
-                           class="btn btn-outline-primary">
-                            <i class="bi bi-calendar-check me-2"></i>Ver asistencias
-                        </a>
-                        <a href="{% url 'app_asistencias:tomar_lista' paralelo.id %}" 
-                           class="btn btn-success">
-                            <i class="bi bi-check-circle me-2"></i>Tomar lista
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <div class="col-12">
-            <div class="alert alert-info d-flex align-items-center" role="alert">
-                <i class="bi bi-info-circle-fill me-2"></i>
-                <div>
-                    No hay paralelos disponibles en este momento.
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    
-    <div class="mt-4">
-        <a href="javascript:history.back()" 
-           class="btn btn-secondary d-flex align-items-center" 
-           style="width: fit-content;">
-            <i class="bi bi-arrow-left me-2"></i>Regresar
-        </a>
-    </div>
-</div>
+</div>  
+
 {% endblock %}

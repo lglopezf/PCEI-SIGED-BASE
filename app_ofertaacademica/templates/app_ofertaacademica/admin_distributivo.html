@@ -2,37 +2,80 @@
 
 {% block title %}Administrar Distributivo{% endblock %}  
 
-{% block contenido %}  
-<h2>Administrar Distributivo</h2>  
-<a href="{% url 'app_ofertaacademica:create_distributivo' %}" class="btn btn-Info">Agregar Distributivo</a>  
-<a href="{% url 'app_ofertaacademica:oferta_academica' %}" class="btn btn-secondary">Volver</a>  
-<table class="table">  
-    <thead>  
-        <tr>  
-            <th>Año Lectivo</th>  
-            <th>Asignatura</th>
-            <th>Docente</th>
-            <th>Paralelo</th>
-            <th></th> 
-        </tr>  
-    </thead>  
-    <tbody>  
-        {% for distributivo in distributivo %}  
-        <tr>  
-            <td>{{ distributivo.aniolectivo }}</td> 
-            <td>{{ distributivo.asignatura }} </td>
-            <td>{{ distributivo.docente }} </td>
-            <td>{{ distributivo.paralelo }} </td>
-            <td>
-                <a href="{% url 'app_ofertaacademica:update_distributivo' distributivo.id %}" class="btn btn-warning">Editar</a>  
-                <a href="{% url 'app_ofertaacademica:delete_distributivo' distributivo.id %}" class="btn btn-danger">Eliminar</a>
-            </td>  
-        </tr>  
-        {% empty %}
+{% block contenido %}   
+<style>  
+    .titulo-estilo {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+        padding: 15px; /* Espaciado interno */  
+        border-radius: 8px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        font-size: 2em; /* Tamaño de fuente más grande */  
+        margin-bottom: 20px; /* Espaciado inferior */  
+    }  
+    
+    .table {  
+        border-radius: 8px; /* Bordes redondeados para la tabla */  
+        overflow: hidden; /* Esconde bordes que sobresalen */  
+    }  
+    
+    .table th {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para encabezados */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+    }  
+    
+    .table td, .table th {  
+        text-align: center; /* Centrar texto en las celdas */  
+    }  
+    
+    .btn-custom {  
+        margin-right: 5px; /* Espaciado entre botones para mejor visualización */  
+    }  
+    </style>  
+    
+    <h2 class="titulo-estilo text-center">Administrar Distributivos</h2>  
+    
+    <div class="d-flex justify-content-between mb-3">  
+        <div></div> <!-- Espacio vacío para alineación -->  
+    <a href="{% url 'app_ofertaacademica:create_distributivo' %}" class="btn btn-primary">Agregar Distributivo</a>  
+</div>  
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">  
+        <thead>  
             <tr>  
-                <td colspan="5">No existe información a mostrar</td> 
-            </tr> 
-        {% endfor %}  
-    </tbody>  
-</table>  
-{% endblock %} 
+                <th>Año Lectivo</th>  
+                <th>Asignatura</th>  
+                <th>Docente</th>  
+                <th>Paralelo</th>  
+                <th>Acciones</th>   
+            </tr>  
+        </thead>  
+        <tbody>  
+            {% for distributivo in distributivo %}  
+            <tr>  
+                <td>{{ distributivo.aniolectivo }}</td>   
+                <td>{{ distributivo.asignatura }}</td>  
+                <td>{{ distributivo.docente }}</td>  
+                <td>{{ distributivo.paralelo }}</td>  
+                <td>  
+                    <div class="btn-group">   
+                        <a href="{% url 'app_ofertaacademica:update_distributivo' distributivo.id %}" class="btn btn-warning btn-sm btn-custom">Editar</a>  
+                        <a href="{% url 'app_ofertaacademica:delete_distributivo' distributivo.id %}" class="btn btn-danger btn-sm btn-custom" onclick="return confirm('¿Estás seguro de eliminar este distributivo?')">Eliminar</a>  
+                    </div>
+                </td>  
+            </tr>  
+            {% empty %}  
+                <tr>  
+                    <td colspan="5" class="text-center">No existe información a mostrar</td>   
+                </tr>   
+            {% endfor %}  
+        </tbody>  
+    </table> 
+</div> 
+
+<div class="text-center mb-3">  
+    <a href="{% url 'app_ofertaacademica:oferta_academica' %}" class="btn btn-secondary">Regresar</a>  
+</div>  
+
+{% endblock %}

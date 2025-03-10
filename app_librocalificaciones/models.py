@@ -41,7 +41,7 @@ class Actividad(models.Model):
     ('actividad_grupal', 'Actividad grupal'),
     ('actividad_individual', 'Actividad individual'),
     ('leccion', 'Lección'),
-    ('evalucion_final', 'Evaluación Final'),
+    ('evaluacion_final', 'Evaluación Final'),
     )
 
     nombre=models.CharField(max_length=50)

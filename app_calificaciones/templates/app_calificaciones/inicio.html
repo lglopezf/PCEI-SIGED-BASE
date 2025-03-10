@@ -1,59 +1,61 @@
-{% extends 'inicio.html' %}
+{% extends 'inicio.html' %}  
 
-{% block title %}Calificaciones{% endblock %}
+{% block title %}Calificaciones{% endblock %}  
 
-{% block contenido %}
-    {% for anio_lectivo in anio_lectivos %}
-        <div class="row ps-3 pe-3 pt-3" style="width: 100%">
-            <div class="col-12 mb-2">
-                <div class="card border border-primary-subtle border-2">
+{% block contenido %}  
+<style>   
+     .card-header {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el encabezado de la tarjeta */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+    }  
 
-                    <div class="card-header bg-primary-subtle text-center">
-                        <b>Calificaciones del año lectivo {{anio_lectivo.nombre}} ({{anio_lectivo.fecha_inicio}} al {{anio_lectivo.fecha_fin}})</b>
-                    </div>
+</style>  
 
-                    <div class="card-body">
-
-                        <table class="table">
-                            
-                            <thead>
-                                <tr  class="text-center">
-                                    <th>Docente</th>
-                                    <th>Asignatura</th>
-                                    <th>Paralelo</th>
-                                    <th>Matriculados</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {% for distributivo in anio_lectivo.get_distributivos %}
-                                    <tr  class="text-center">
-                                        <td>{{distributivo.docente}}</th>
-                                        <td>{{distributivo.asignatura}}</th>
-                                        <td>{{distributivo.paralelo.nombre}}</th>
-                                        <td>{{distributivo.get_matriculas.count}} estudiante(s)</th>
-                                        <td>
-                                            <a class="btn btn-success bi bi-eye-fill"  href="{% url 'app_calificaciones:verlibro' distributivo.id %}">[Ver libro]</a>
-                                        </th>
-                                    </tr>
-                                {% empty %}
-                                    <tr>
-                                        <td colspan="4">No hay datos a mostrar</th>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-    {% endfor %}
+{% for anio_lectivo in anio_lectivos %}  
+    <div class="row ps-3 pe-3 pt-3" style="width: 100%">  
+        <div class="col-12 mb-2">  
+            <div class="card">  
+                <div class="card-header">  
+                    <h5 class="titulo-calificaciones text-center">  
+                        Calificaciones del año lectivo {{anio_lectivo.nombre}} ({{anio_lectivo.fecha_inicio}} al {{anio_lectivo.fecha_fin}})  
+                    </h5>  
+                </div>  
+                <div class="card-body">
+                    <div class="table-responsive"> 
+                        <table class="table table-hover">  
+                            <thead>  
+                                <tr class="text-center">  
+                                    <th>Docente</th>  
+                                    <th>Asignatura</th>  
+                                    <th>Paralelo</th>  
+                                    <th>Matriculados</th>  
+                                    <th></th>  
+                                </tr>  
+                            </thead>  
+                            <tbody>  
+                                {% for distributivo in anio_lectivo.get_distributivos %}  
+                                    <tr class="text-center">  
+                                        <td>{{distributivo.docente}}</td>  
+                                        <td>{{distributivo.asignatura}}</td>  
+                                        <td>{{distributivo.paralelo.nombre}}</td>  
+                                        <td>{{distributivo.get_matriculas.count}} estudiante(s)</td>  
+                                        <td>  
+                                            <a class="btn btn-success bi bi-eye-fill" href="{% url 'app_calificaciones:verlibro' distributivo.id %}">[Ver libro]</a>  
+                                        </td>  
+                                    </tr>  
+                                {% empty %}  
+                                    <tr>  
+                                        <td colspan="5" class="text-center">No hay datos a mostrar</td>  
+                                    </tr>  
+                                {% endfor %}  
+                            </tbody>  
+                        </table>  
+                    </div> 
+                </div>  
+            </div>  
+        </div>  
+    </div>  
+{% endfor %}  
 {% endblock %}
 
 

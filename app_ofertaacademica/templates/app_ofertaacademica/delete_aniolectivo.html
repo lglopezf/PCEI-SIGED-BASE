@@ -1,14 +1,38 @@
-<!-- templates/aniolectivo/delete_aniolectivo.html -->  
 {% extends 'inicio.html' %}  
 
 {% block title %}Eliminar Año Lectivo{% endblock %}  
 
 {% block contenido %}  
-<h2>Eliminar Año Lectivo</h2>  
-<p>¿Estás seguro de que deseas eliminar a {{ aniolectivo.nombre }}?</p>  
-<form method="POST">  
-    {% csrf_token %}  
-    <button type="submit" class="btn btn-danger">Eliminar</button>  
-</form>  
-<a href="{% url 'app_ofertaacademica:admin_aniolectivo' %}" class="btn btn-secondary">Cancelar</a>  
+<style>  
+.titulo-estilo {  
+    background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+    color: #FFFFFF; /* Texto blanco para contraste */  
+    padding: 15px; /* Espaciado interno */  
+    border-radius: 8px; /* Bordes redondeados */  
+    text-align: center; /* Centrar texto */  
+    font-size: 2em; /* Tamaño de fuente más grande */  
+    margin-bottom: 20px; /* Espaciado inferior */  
+}  
+
+.form-container {  
+    background-color: #E0F7FA; /* Azul pastel suave para fondo del formulario */  
+    padding: 20px; /* Espaciado interno del formulario */  
+    border-radius: 8px; /* Bordes redondeados */  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para el formulario */  
+}  
+</style>  
+
+<h1 class="titulo-estilo">Eliminar Año Lectivo</h1>  
+
+<div class="form-container">  
+    <p>¿Estás seguro de que deseas eliminar a {{ aniolectivo.nombre }}?</p>  
+    <form method="POST">  
+        {% csrf_token %}  
+        <div class="d-flex justify-content-center mt-3">  
+            <button type="submit" class="btn btn-danger mx-2">Eliminar</button>  
+            <a href="{% url 'app_ofertaacademica:admin_aniolectivo' %}" class="btn btn-secondary mx-2">Cancelar</a>  
+        </div>  
+    </form>  
+</div>  
+
 {% endblock %}

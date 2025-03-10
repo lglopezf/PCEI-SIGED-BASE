@@ -1,0 +1,81 @@
+{% extends 'inicio.html' %}
+{% block title %}Registro{% endblock %}
+
+{% block contenido %}
+<style>  
+    .titulo-estilo {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+        padding: 15px; /* Espaciado interno */  
+        border-radius: 8px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        font-size: 2em; /* Tamaño de fuente más grande */  
+        margin-bottom: 20px; /* Espaciado inferior */  
+    }  
+    
+    .table {  
+    border-radius: 8px; /* Bordes redondeados para la tabla */  
+    overflow: hidden; /* Esconde bordes que sobresalen */  
+}  
+
+.table th {  
+    background-color: rgb(22, 87, 117); /* Azul pastel para encabezados */  
+    color: #FFFFFF; /* Texto blanco para contraste */  
+}  
+
+.table td, .table th {  
+    text-align: center; /* Centrar texto en las celdas */  
+}  
+
+.btn-custom {  
+    margin: 5px; /* Espaciado entre botones para mejor visualización */  
+}  
+</style>
+ 
+
+    <h1 class="titulo-estilo text-center">Administrar libro de calificaciones</h1>  
+    <div class="d-flex justify-content-between mb-3">  
+        <div></div> <!-- Espacio vacío para alineación --> 
+        <a href="{% url 'app_librocalificaciones:libro_crear' %}" class="btn btn-primary me-md-2"> Agregar Libro de Calificaciones</a>
+    </div>
+    
+    <div class="card-body">
+        {% if not librocalificaciones %}
+            <div class="alert alert-info">No hay información a mostrar</div>
+        {% else %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in librocalificaciones %}
+                            <tr>
+                                <td>{{ item.get_nombre_display }}</td>
+                                <td>
+                                    <a onclick="javascript:return confirm('¿Seguro desea eliminar el libro de calificación?')" 
+                                    href="{% url 'app_librocalificaciones:libro_eliminar' item.id %}" 
+                                    class="btn btn-danger btn-sm">
+                                        Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>  
+                                <td colspan="2">No existe información a mostrar</td> 
+                            </tr> 
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="text-center mb-3">
+        <a href="{% url 'app_librocalificaciones:libro_calificaciones' %}"  class="btn btn-secondary btn-custom"> Regresar</a>
+    </div>
+   
+{% endblock %}

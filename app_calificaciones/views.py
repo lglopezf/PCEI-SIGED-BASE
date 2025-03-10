@@ -47,9 +47,9 @@ def guardarnotas(request, iddistributivo, idactividades):
         nota=request.POST.get(str(matricula.id))
 
         matricula.generar_calificacion_final(distributivo)
-        matricula.guardar_nota(actividad, nota)
+        matricula.guardar_nota_actividad(distributivo, actividad, nota)
 
-        print(matricula.id, nota)
+
     return redirect(reverse('app_calificaciones:verevaluaciones', args=[distributivo.id, actividad.evaluacion.periodo_academico.id]))
 
 
@@ -59,7 +59,7 @@ def calcularpromedio_calificacionfinal(request, iddistributivo):
 
     for matricula in matriculas:
 
-        calificacionfinal = Calificacionfinal.objects.filter(matricula=matricula).first()
+        calificacionfinal = Calificacionfinal.objects.filter(matricula=matricula, distributivo=distributivo).first()
         calificaciones_periodos = Calificacionperiodo.objects.filter(calificacion_final=calificacionfinal).all()
         suma_promedio=0
         
@@ -86,6 +86,7 @@ def calcularpromedios_periodo_evaluaciones(request, iddistributivo, idperiodoaca
     for matricula in matriculas:
         suma_promedio = 0
         calificacion_periodo=Calificacionperiodo.objects.filter(calificacion_final__matricula=matricula,
+                                                                calificacion_final__distributivo=distributivo,
                                                                 periodo_academico = periodoacademico).first()
 
         calificacionevaluaciones= Calificacionevaluacion.objects.filter(calificacion_periodo=calificacion_periodo)
@@ -97,7 +98,7 @@ def calcularpromedios_periodo_evaluaciones(request, iddistributivo, idperiodoaca
             total_actividades=0
 
             for calificacionactividad in calificacionactividades:
-                suma_notas +=calificacionactividad.nota
+                suma_notas += float(calificacionactividad.nota) if calificacionactividad.nota else 0 
                 total_actividades += 1
 
             if total_actividades > 0:
@@ -105,7 +106,7 @@ def calcularpromedios_periodo_evaluaciones(request, iddistributivo, idperiodoaca
             else:
                 promedio = 0
         
-            calificacionevaluacion.nota = promedio
+            calificacionevaluacion.nota = float(promedio)
             calificacionevaluacion.save()
             
             #calcular promedio final de periodos
@@ -117,7 +118,7 @@ def calcularpromedios_periodo_evaluaciones(request, iddistributivo, idperiodoaca
         else:
             promedio=0
         
-        calificacion_periodo.nota = promedio
+        calificacion_periodo.nota = float(promedio)
         calificacion_periodo.save()
     return redirect(reverse('app_calificaciones:verevaluaciones', args=[distributivo.id, periodoacademico.id]))
         

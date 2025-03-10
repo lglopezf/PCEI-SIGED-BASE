@@ -1,14 +1,35 @@
-<!-- templates/distributivo/delete_distributivo.html -->  
 {% extends 'inicio.html' %}  
 
 {% block title %}Eliminar Distributivo{% endblock %}  
 
 {% block contenido %}  
-<h2>Eliminar Distributivo</h2>  
+<style>  
+    .titulo-estilo {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+        padding: 15px; /* Espaciado interno */  
+        border-radius: 8px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        font-size: 2em; /* Tamaño de fuente más grande */  
+        margin-bottom: 20px; /* Espaciado inferior */  
+    }  
+
+    .btn-group {  
+        margin-top: 15px; /* Espaciado superior para el grupo de botones */  
+    }  
+
+    .btn-danger {  
+        margin-right: 10px; /* Espacio a la derecha del botón Eliminar */  
+    }  
+</style>  
+
+<h1 class="titulo-estilo">Eliminar Distributivo</h1>  
 <p>¿Estás seguro de que deseas eliminar a {{ distributivo }}?</p>  
-<form method="POST">  
+<form method="POST" class="text-center">  
     {% csrf_token %}  
-    <button type="submit" class="btn btn-danger">Eliminar</button>  
+    <div class="btn-group">  
+        <button type="submit" class="btn btn-danger">Eliminar</button>  
+        <a href="{% url 'app_ofertaacademica:admin_distributivo' %}" class="btn btn-secondary">Cancelar</a>  
+    </div>  
 </form>  
-<a href="{% url 'app_ofertaacademica:admin_distributivo' %}" class="btn btn-secondary">Cancelar</a>  
-{% endblock %} 
+{% endblock %}

@@ -1,56 +1,92 @@
-{% extends 'inicio.html' %}
+{% extends 'inicio.html' %}  
 
-{% block title %} Lista de Grados{% endblock %}
+{% block title %} Lista de Grados{% endblock %}  
 
-{% block contenido %}
-    <div class="container mt-5">
-        <div class="card shadow-sm bg-light">
-            <div class="card-header bg-info text-white">
-                <h1 class="mb-4 text-center">Lista de Grados</h1>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead class="bg-info text-white">
-                        <tr>
-                            <th scope="col" >Nombre del Grado</th>
-                            <th scope="col">Institución</th>
-                            <th scope="col">Nivel</th>
-                            <th scope="col">Subnivel</th>
-                            <th scope="col">Libro de Calificaciones</th>
-                            <th scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in grado %}
-                            <tr>
-                                <td>{{ item.nombre }}</td>
-                                <td>{{ item.institucion }}</td>
-                                <td>{{ item.nivel }}</td>
-                                <td>{{ item.subnivel }}</td>
-                                <td>{{ item.libro_calificacion.get_nombre_display|default:'' }}</td>
-                                <td>
-                                    <a href="{% url 'app_grados:grados_editar' item.id %}" class="btn btn-warning btn-sm">Editar</a>
-                                    <a href="{% url 'app_grados:grados_eliminar' item.id %}" class="btn btn-danger btn-sm">Eliminar</a>
-                                </td>
-                            </tr>
-                        {% empty %}
-                            <tr>  
-                                <td colspan="3">No existe información a mostrar</td> 
-                            </tr> 
-                        {% endfor %}
-                    </tbody>
-                </table>
+{% block contenido %}  
+<style>  
+    .titulo-estilo {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+        padding: 15px; /* Espaciado interno */  
+        border-radius: 8px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        font-size: 2em; /* Tamaño de fuente más grande */  
+        margin-bottom: 20px; /* Espaciado inferior */  
+    }  
+    
+    .table {  
+    border-radius: 8px; /* Bordes redondeados para la tabla */  
+    overflow: hidden; /* Esconde bordes que sobresalen */  
+}  
 
-            </div>
+.table th {  
+    background-color: rgb(22, 87, 117); /* Azul pastel para encabezados */  
+    color: #FFFFFF; /* Texto blanco para contraste */  
+}  
+
+.table td, .table th {  
+    text-align: center; /* Centrar texto en las celdas */  
+}  
+
+.btn-custom {  
+    margin-right: 5px; /* Espaciado entre botones para mejor visualización */  
+}  
+</style>  
+
+
+    <h1 class="titulo-estilo text-center">Administrar Grados</h1>  
+    
+    <div class="d-flex justify-content-between mb-3">  
+        <div></div> <!-- Espacio vacío para alineación -->  
+        <a href="{% url 'app_grados:grados_crear' %}" class="btn btn-primary">Agregar Grado</a>  
+    </div>  
+
+    <div class="table-responsive">
+
+            <table class="table table-bordered table-hover">  
+                <thead>  
+                    <tr>  
+                        <th scope="col">Institución</th>
+                        <th scope="col">Nombre del Grado</th>    
+                        <th scope="col">Nivel</th>  
+                        <th scope="col">Subnivel</th>  
+                        <th scope="col">Libro de Calificaciones</th>  
+                        <th scope="col">Acciones</th>  
+                    </tr>  
+                </thead>  
+                <tbody>  
+                    {% for item in grado %}  
+                        <tr>  
+                            <td>{{ item.institucion }}</td>
+                            <td>{{ item.nombre }}</td>  
+                            <td>{{ item.nivel }}</td>  
+                            <td>{{ item.subnivel }}</td>  
+                            <td>{{ item.libro_calificacion.get_nombre_display|default:'' }}</td>  
+                            <td> 
+                                <div class="btn-group">
+                                    <a href="{% url 'app_grados:grados_editar' item.id %}" class="btn btn-warning btn-sm btn-custom">Editar</a>  
+                                    <a href="{% url 'app_grados:grados_eliminar' item.id %}" class="btn btn-danger btn-sm btn-custom">Eliminar</a>  
+                                </div> 
+                            </td>  
+                        </tr>  
+                    {% empty %}  
+                        <tr>  
+                            <td colspan="6" class="text-center">No existe información a mostrar</td>   
+                        </tr>   
+                    {% endfor %}  
+                    <tr>  
+                        
+                           
+                        
+                    </tr>  
+                </tbody>  
+            </table>
+        </div>  
+        <div class="text-center mb-3">
+            <a href="{% url 'app_grados:grados' %}" class="btn btn-secondary btn-custom">Regresar</a>  
+
         </div>
-        
-        
-        <div class="d-flex justify-content-between mt-2">
-            <a href="{% url 'app_grados:grados' %}" class="btn btn-primary mb-3 mt-3">Volver Atrás</a>
-            <a href="{% url 'app_grados:grados_crear' %}"  class="btn btn-success mb-3 mt-3 ">Crear Nuevo Grado</a>
-        </div>
-
-
-    </div>
+        </div>  
+    </div>  
+</div>  
 {% endblock %}
-

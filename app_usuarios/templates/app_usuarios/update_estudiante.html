@@ -1,14 +1,42 @@
-<!-- templates/estudiantes/update_estudiante.html -->  
 {% extends 'inicio.html' %}  
 
 {% block title %}Actualizar Estudiante{% endblock %}  
 
 {% block contenido %}  
-<h2>Actualizar Estudiante</h2>  
-<form method="POST">  
-    {% csrf_token %}  
-    {{ form.as_p }}  
-    <button type="submit" class="btn btn-primary">Actualizar</button>  
-    <a href="{% url 'app_usuarios:admin_estudiantes' %}" class="btn btn-secondary">Volver</a>  
+<style>  
+    .titulo-estilo {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+        padding: 15px; /* Espaciado interno */  
+        border-radius: 8px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        font-size: 2em; /* Tamaño de fuente más grande */  
+        margin-bottom: 20px; /* Espaciado inferior */  
+    }  
+    
+    .form-container {  
+        background-color: #E0F7FA; /* Azul pastel suave para fondo de formulario */  
+        padding: 20px; /* Espaciado interior del formulario */  
+        border-radius: 8px; /* Bordes redondeados del formulario */  
+      
+    }  
+    
+    .btn-container {  
+        display: flex;  
+        justify-content: space-between; /* Espacio entre los botones */  
+        margin-top: 20px; /* Margen superior para separación */  
+    }  
+</style>  
+
+<h2 class="titulo-estilo">Actualizar Estudiante</h2>  
+
+<div class="form-container">  
+    <form method="POST">  
+        {% csrf_token %}  
+        {{ form.as_p }}  
+        <div class="text-center">  
+        <button type="submit" class="btn btn-success">Guardar</button>  
+        <a href="{% url 'app_usuarios:admin_estudiantes' %}" class="btn btn-secondary">Regresar</a>  
+    </div>  
 </form>  
 {% endblock %}  

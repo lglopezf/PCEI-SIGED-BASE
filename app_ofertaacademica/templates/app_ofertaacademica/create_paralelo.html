@@ -1,14 +1,36 @@
-<!-- templates/paralelo/create_paralelo.html -->  
 {% extends 'inicio.html' %}  
 
 {% block title %}Crear Paralelo{% endblock %}  
 
 {% block contenido %}  
-    <h1>Crear Paralelo</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit"class="btn btn-primary">Guardar</button>
-        <a href="{% url 'app_ofertaacademica:admin_paralelo' %}" class="btn btn-secondary">Volver</a>    
-</form>  
+<style>  
+    .titulo-estilo {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+        padding: 15px; /* Espaciado interno */  
+        border-radius: 8px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        font-size: 2em; /* Tamaño de fuente más grande */  
+        margin-bottom: 20px; /* Espaciado inferior */  
+    }  
+    
+    .form-container {  
+        background-color: #E0F7FA; /* Azul pastel suave para fondo del formulario */  
+        padding: 20px; /* Espaciado interno del formulario */  
+        border-radius: 8px; /* Bordes redondeados */  
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para el formulario */  
+    }  
+    </style>  
+
+<h1 class="titulo-estilo">Crear Paralelo</h1>  
+<div class="form-container">  
+    <form method="post">  
+        {% csrf_token %}  
+        {{ form.as_p }}  
+        <div class="text-center">
+        <button type="submit" class="btn btn-success">Guardar</button>  
+        <a href="{% url 'app_ofertaacademica:admin_paralelo' %}" class="btn btn-secondary">Regresar</a>
+        </div>
+    </form>  
+</div>
 {% endblock %}

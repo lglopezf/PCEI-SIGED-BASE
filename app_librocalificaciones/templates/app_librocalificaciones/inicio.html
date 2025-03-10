@@ -3,57 +3,77 @@
 {% block title %}Libro de calificaciones{% endblock %}
 
 {% block contenido %}
+<style>  
+    .titulo-estilo {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+        padding: 15px; /* Espaciado interno */  
+        border-radius: 8px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        font-size: 2em; /* Tamaño de fuente más grande */  
+        margin-bottom: 20px; /* Espaciado inferior */  
+    }  
+    
+    .card {  
+        border-radius: 8px; /* Bordes redondeados para las tarjetas */  
+        box-shadow: 0 4px 8px rgba(245, 241, 241, 0.1); /* Sombra para las tarjetas */  
+    }  
+    
+    .card-header {  
+        background-color: rgb(22, 87, 117); /* Color del encabezado */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+    }  
+    </style>  
+
+
     <div class="row">
-        <div class="col-6 mb-2">
-            <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle">
-                    Libros de calificación
-                </div>
+        <div class="col-md-6 col-sm-12 mb-2">  
+            <div class="card border border-primary-subtle">  
+                <div class="card-header">  
+                    <b>Libros de calificación</b>  
+                </div> 
                 <div class="card-body">
-                <p class="card-text">Gestión de los libros de calificaciones</p>
-                <a href="lista_libro_calificaciones" class="btn btn-primary">Administrar</a>
+                    <p class="card-text">Gestión de los libros de calificaciones</p>
+                    <a href="libro_calificacion_lista" class="btn btn-primary">Administrar</a>
                 </div>
             </div>
         </div>
 
-        <div class="col-6 mb-2">
-            <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle">
-                    Periodos académicos
+        <div class="col-md-6 col-sm-12 mb-2">  
+            <div class="card border border-primary-subtle">  
+                <div class="card-header">  
+                    <b>Periodos académicos</b>  
+                
                 </div>
                 <div class="card-body">
-                <p class="card-text">Gestión de los periodos académicoactividades</p>
-                <a href="LISTAR_PERIODO" class="btn btn-primary">Administrar</a>
-               
+                    <p class="card-text">Gestión de los periodos académicoactividades</p>
+                    <a href="PERIODO_LISTA" class="btn btn-primary">Administrar</a>
                 </div>
             </div>
         </div>
-        <div class="col-6 mb-2">
-            <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle">
-                    Evaluaciones 
+
+        <div class="col-md-6 col-sm-12 mb-2">  
+            <div class="card border border-primary-subtle">  
+                <div class="card-header">  
+                    <b>Evaluaciones</b>  
                 </div>
                 <div class="card-body">
-                <p class="card-text">Gestión de Evaluación Sumativa Y Formativa</p>
-                <a href="evaluacion_lista" class="btn btn-primary">Administrar</a>
-               
+                    <p class="card-text">Gestión de Evaluación Sumativa Y Formativa</p>
+                    <a href="evaluacion_lista" class="btn btn-primary">Administrar</a>
                 </div>
             </div>
         </div>
-        <div class="col-6 mb-2">
-            <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle">
-                    Actividades 
+
+        <div class="col-md-6 col-sm-12 mb-2">  
+            <div class="card border border-primary-subtle">  
+                <div class="card-header">  
+                    <b>Actividades</b>  
                 </div>
                 <div class="card-body">
-                <p class="card-text">Gestión de los pery sumativa y actividades</p>
-                <a href="actividad_lista" class="btn btn-primary">Administrar</a>
-               
+                    <p class="card-text">Gestión de los pery sumativa y actividades</p>
+                    <a href="actividad_lista" class="btn btn-primary">Administrar</a>
                 </div>
             </div>
         </div>
     </div>
-    
 {% endblock %}
-
-

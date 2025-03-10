@@ -1,23 +1,37 @@
-<form method="post" action="{% url 'app_asistencias:registrar_asistencias' paralelo.id %}">
-    {% csrf_token %}
-    <input type="date" name="fecha" value="{{ fecha }}" required>
-    <table>
-        <thead>
-            <tr>
-                <th>Estudiante</th>
-                <th>Asistió</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for matricula in matriculas %}
-            <tr>
-                <td>{{ matricula.estudiante }}</td>
-                <td>
-                    <input type="checkbox" name="asistio_{{ matricula.id }}">
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <button type="submit">Guardar asistencias</button>
+<form method="post" action="{% url 'app_asistencias:registrar_asistencias' paralelo.id %}" class="mt-4">  
+    {% csrf_token %}  
+    
+    <div class="mb-3">  
+        <label for="fecha" class="form-label">Fecha</label>  
+        <input type="date" name="fecha" id="fecha" class="form-control" value="{{ fecha }}" required>  
+    </div>  
+    
+    <table class="table table-hover">  
+        <thead>  
+            <tr>  
+                <th>Estudiante</th>  
+                <th>Asistió</th>  
+            </tr>  
+        </thead>  
+        <tbody>  
+            {% for matricula in matriculas %}  
+            <tr>  
+                <td>{{ matricula.estudiante }}</td>  
+                <td>  
+                    <input type="checkbox" name="asistio_{{ matricula.id }}">  
+                </td>  
+            </tr>  
+            {% empty %}  
+            <tr>  
+                <td colspan="2">No hay estudiantes matriculados.</td>  
+            </tr>  
+            {% endfor %}  
+        </tbody>  
+    </table>  
+    
+    <div class="d-flex justify-content-center mt-4">  
+        <button type="submit" class="btn btn-primary">  
+            Guardar asistencias  
+        </button>  
+    </div>  
 </form>

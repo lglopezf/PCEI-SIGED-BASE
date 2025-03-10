@@ -11,6 +11,14 @@ class AniolectivoForm(forms.ModelForm):
             'fecha_inicio': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),  
             'fecha_fin': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),    
         } 
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.fecha_inicio:
+            self.initial['fecha_inicio'] = self.instance.fecha_inicio.strftime('%Y-%m-%d')
+        if self.instance and self.instance.fecha_fin:
+            self.initial['fecha_fin'] = self.instance.fecha_fin.strftime('%Y-%m-%d')
+
   
 class ParaleloForm(forms.ModelForm):  
     class Meta:  

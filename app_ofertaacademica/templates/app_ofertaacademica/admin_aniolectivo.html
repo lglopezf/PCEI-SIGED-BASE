@@ -1,38 +1,79 @@
-<!-- templates/app_ofertaacdemica/admin_aniolecto.html -->  
 {% extends 'inicio.html' %}  
 
 {% block title %}Administrar Año Lectivo{% endblock %}  
 
 {% block contenido %}  
-<h2>Administrar Año Lectivo</h2>  
-<a href="{% url 'app_ofertaacademica:create_aniolectivo' %}" class="btn btn-Info">Agregar Año Lectivo</a> 
-<a href="{% url 'app_ofertaacademica:oferta_academica' %}" class="btn btn-secondary">Volver</a>  
-<table class="table">  
-    <thead>  
-        <tr> 
+<style>  
+    .titulo-estilo {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+        padding: 15px; /* Espaciado interno */  
+        border-radius: 8px; /* Bordes redondeados */  
+        text-align: center; /* Centrar texto */  
+        font-size: 2em; /* Tamaño de fuente más grande */  
+        margin-bottom: 20px; /* Espaciado inferior */  
+    }  
+    
+    .table {  
+        border-radius: 8px; /* Bordes redondeados para la tabla */  
+        overflow: hidden; /* Esconde bordes que sobresalen */  
+    }  
+    
+    .table th {  
+        background-color: rgb(22, 87, 117); /* Azul pastel para encabezados */  
+        color: #FFFFFF; /* Texto blanco para contraste */  
+    }  
+    
+    .table td, .table th {  
+        text-align: center; /* Centrar texto en las celdas */  
+    }  
+    
+    .btn-custom {  
+        margin-right: 5px; /* Espaciado entre botones para mejor visualización */  
+    }  
+    </style>  
+    
+    <h2 class="titulo-estilo text-center">Administrar Años Lectivos</h2>  
+    
+    <div class="d-flex justify-content-between mb-3">  
+        <div></div> <!-- Espacio vacío para alineación -->   
+    <a href="{% url 'app_ofertaacademica:create_aniolectivo' %}" class="btn btn-primary">Agregar Año Lectivo</a>  
+</div>  
 
-            <th >Nombre</th>
-            <th>Fecha Inicio</th>  
-            <th>Fecha Fin</th>  
-            <th></th>
-        </tr>  
-    </thead>  
-    <tbody>  
-        {% for aniolectivo in aniolectivo %}  
-        <tr>  
-            <td >{{aniolectivo.nombre }}</td>  
-            <td>{{ aniolectivo.fecha_inicio }}</td>  
-            <td>{{ aniolectivo.fecha_fin }}</td>  
-            <td>  
-                <a href="{% url 'app_ofertaacademica:update_aniolectivo' aniolectivo.id %}" class="btn btn-warning">Editar</a>  
-                <a href="{% url 'app_ofertaacademica:delete_aniolectivo' aniolectivo.id %}" class="btn btn-danger">Eliminar</a>  
-            </td>  
-        </tr>  
-        {% empty %}
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">  
+        <thead>  
             <tr>  
-                <td colspan="4">No existe información a mostrar</td> 
-            </tr> 
-        {% endfor %}  
-    </tbody>  
-</table> 
+                <th>Nombre</th>  
+                <th>Fecha Inicio</th>  
+                <th>Fecha Fin</th>  
+                <th>Acciones</th>  
+            </tr>  
+        </thead>  
+        <tbody>  
+            {% for aniolectivo in aniolectivo %}  
+            <tr>  
+                <td>{{ aniolectivo.nombre }}</td>  
+                <td>{{ aniolectivo.fecha_inicio }}</td>  
+                <td>{{ aniolectivo.fecha_fin }}</td>  
+                <td> 
+                    <div class="btn-group">  
+                        <a href="{% url 'app_ofertaacademica:update_aniolectivo' aniolectivo.id %}" class="btn btn-warning btn-sm btn-custom">Editar</a>  
+                        <a href="{% url 'app_ofertaacademica:delete_aniolectivo' aniolectivo.id %}" class="btn btn-danger btn-sm btn-custom" onclick="return confirm('¿Estás seguro de eliminar este año lectivo?')">Eliminar</a>  
+                    </div>
+                </td>  
+            </tr>  
+            {% empty %}  
+            <tr>  
+                <td colspan="4" class="text-start">No existe información a mostrar</td>  
+            </tr>  
+            {% endfor %}  
+        </tbody>  
+    </table>
+</div>  
+
+<div class="text-center mb-3">  
+    <a href="{% url 'app_ofertaacademica:oferta_academica' %}" class="btn btn-secondary">Regresar</a>  
+</div>  
+
 {% endblock %}

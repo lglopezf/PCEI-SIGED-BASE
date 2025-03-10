@@ -1,14 +1,38 @@
-<!-- templates/paralelo/update_paralelo.html -->  
 {% extends 'inicio.html' %}  
 
 {% block title %}Actualizar Paralelo{% endblock %}  
 
 {% block contenido %}  
-<h2>Actualizar Paralelo</h2>  
-<form method="POST">  
-    {% csrf_token %}  
-    {{ form.as_p }}  
-    <button type="submit" class="btn btn-primary">Actualizar</button> 
-    <a href="{% url 'app_ofertaacademica:admin_paralelo' %}" class="btn btn-secondary">Volver</a>   
-</form>  
+<style>  
+.titulo-estilo {  
+    background-color: rgb(22, 87, 117); /* Azul pastel para el título */  
+    color: #FFFFFF; /* Texto blanco para contraste */  
+    padding: 15px; /* Espaciado interno */  
+    border-radius: 8px; /* Bordes redondeados */  
+    text-align: center; /* Centrar texto */  
+    font-size: 2em; /* Tamaño de fuente más grande */  
+    margin-bottom: 20px; /* Espaciado inferior */  
+}  
+
+.form-container {  
+    background-color: #E0F7FA; /* Azul pastel suave para fondo del formulario */  
+    padding: 20px; /* Espaciado interno del formulario */  
+    border-radius: 8px; /* Bordes redondeados */  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para el formulario */  
+}  
+</style>  
+
+<h1 class="titulo-estilo">Actualizar Paralelo</h1>  
+
+<div class="form-container">  
+    <form method="POST">  
+        {% csrf_token %}  
+        {{ form.as_p }}  
+        <div class="d-flex justify-content-center mt-3">  
+            <button type="submit" class="btn btn-success mx-2">Guardar</button>  
+            <a href="{% url 'app_ofertaacademica:admin_paralelo' %}" class="btn btn-secondary mx-2">Regresar</a>   
+        </div>  
+    </form>  
+</div>  
+
 {% endblock %}

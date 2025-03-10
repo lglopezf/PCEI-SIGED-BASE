@@ -1,72 +1,89 @@
-{% extends 'inicio.html' %}
+{% extends 'inicio.html' %}  
 
-{% block title %}Institucion educativa{% endblock %}
+{% block title %}Institución Educativa{% endblock %}  
 
-{% block contenido %}
-    <div class="row">
-        <div class="col-12">
+{% block contenido %}  
+<style>  
+.card-header {  
+    background-color: rgb(22, 87, 117); /* Azul pastel para el encabezado de la tarjeta */  
+    color: #FFFFFF; /* Texto blanco para contraste */  
+}  
 
-            <div class="card border border-primary-subtle">
-                <div class="card-header bg-primary-subtle">
-                    <h5>
-                        {%if institucion %}
-                            Editar institucion
-                        {% else %}
-                            Crear institucion
-                        {% endif %}
-                    </h5>
-                </div>
-                <div class="card-body">
-                    
-                    <form method="post">
-                        {% csrf_token %}
+.btn-custom {  
+    margin-top: 15px; /* Espaciado entre botones para mejor visualización */  
+}  
 
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group my-1 mr-sm-2">
-                                    <label for="nombre">Nombre <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre" 
-                                    placeholder="Ingrese el nombre" value="{{institucion.nombre}}" required>
-                                </div>
-                            </div>
+.form-container {
+    background-color: #E0F7FA; /* Azul pastel suave para fondo de formulario */
+    padding: 20px; /* Espaciado interior del formulario */
+    border-radius: 8px; /* Bordes redondeados del formulario */
+}
 
-                            <div class="col-6">
-                                <div class="form-group my-1 mr-sm-2">
-                                    <label for="sostenimiento">Sostenimiento <span class="text-danger">*</span></label>
-                                    <select class="form-control"  name="sostenimiento" id="sostenimiento" required>
-                                        <option value="">Seleccione una opción</option>
-                                        <option value="fiscal" {%if institucion.sostenimiento == 'fiscal' %} selected {%endif%}>Fiscal</option>
-                                        <option value="particular" {%if institucion.sostenimiento == 'particular' %} selected {%endif%}>Particular</option>
-                                        <option value="municipal" {%if institucion.sostenimiento == 'municipal' %} selected {%endif%}>Municipal</option>
-                                        <option value="fiscomisional" {%if institucion.sostenimiento == 'fiscomisional' %} selected {%endif%}>Fiscomisional</option>
-                                    </select>
-                                </div>
-                            </div>
 
-                            <div class="col-6">
-                                <div class="form-group my-1 mr-sm-2">
-                                    <label for="modalidad">Modalidad <span class="text-danger">*</span></label>
-                                    <select class="form-control" name="modalidad" id="modalidad" required>
-                                        <option value="">Seleccione una opción</option>
-                                        <option value="presencial" {%if institucion.modalidad == 'presencial' %} selected {%endif%}>Presencial</option>
-                                        <option value="semipresencial" {%if institucion.modalidad == 'semipresencial' %} selected {%endif%}>Semipresencial</option>
-                                        <option value="distancia" {%if institucion.modalidad == 'distancia' %} selected {%endif%}>Distancia</option>
-                                        <option value="enlinea" {%if institucion.modalidad == 'enlinea' %} selected {%endif%}>En linea</option>
-                                    </select>
-                                </div>
-                            </div>
+</style>  
 
-                        </div>
+<div class="row">  
+    <div class="col-12">  
+        <div class="card border border-primary-subtle">  
+            <div class="card-header">  
+                <h5>  
+                    {% if institucion %}  
+                        Editar institución  
+                    {% else %}  
+                        Crear institución  
+                    {% endif %}  
+                </h5>  
+            </div>  
+            <div class="card-body">  
+                <div class="form-container">
+                    <form method="post" >  
+                        {% csrf_token %}  
+
+                        <div class="row">  
+                            <div class="col-12">  
+                                <div class="form-group my-1 mr-sm-2">  
+                                    <label for="nombre">Nombre <span class="text-danger">*</span></label>  
+                                    <input type="text" class="form-control" name="nombre" id="nombre"   
+                                    placeholder="Ingrese el nombre" value="{{institucion.nombre}}" required>  
+                                </div>  
+                            </div>  
+
+                            <div class="col-6">  
+                                <div class="form-group my-1 mr-sm-2">  
+                                    <label for="sostenimiento">Sostenimiento <span class="text-danger">*</span></label>  
+                                    <select class="form-control" name="sostenimiento" id="sostenimiento" required>  
+                                        <option value="">Seleccione una opción</option>  
+                                        <option value="fiscal" {% if institucion.sostenimiento == 'fiscal' %} selected {% endif %}>Fiscal</option>  
+                                        <option value="particular" {% if institucion.sostenimiento == 'particular' %} selected {% endif %}>Particular</option>  
+                                        <option value="municipal" {% if institucion.sostenimiento == 'municipal' %} selected {% endif %}>Municipal</option>  
+                                        <option value="fiscomisional" {% if institucion.sostenimiento == 'fiscomisional' %} selected {% endif %}>Fiscomisional</option>  
+                                    </select>  
+                                </div>  
+                            </div>  
+
+                            <div class="col-6">  
+                                <div class="form-group my-1 mr-sm-2">  
+                                    <label for="modalidad">Modalidad <span class="text-danger">*</span></label>  
+                                    <select class="form-control" name="modalidad" id="modalidad" required>  
+                                        <option value="">Seleccione una opción</option>  
+                                        <option value="presencial" {% if institucion.modalidad == 'presencial' %} selected {% endif %}>Presencial</option>  
+                                        <option value="semipresencial" {% if institucion.modalidad == 'semipresencial' %} selected {% endif %}>Semipresencial</option>  
+                                        <option value="distancia" {% if institucion.modalidad == 'distancia' %} selected {% endif %}>Distancia</option>  
+                                        <option value="enlinea" {% if institucion.modalidad == 'enlinea' %} selected {% endif %}>En línea</option>  
+                                    </select>  
+                                </div>  
+                            </div>  
+                        </div>  
                         
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="{% url 'app_configuracion:institucion' %}" class="btn btn-secondary">Regresar</a>
-                    </form>
-
-                </div>
-            </div>
-            
-        </div>    
-    </div>
+                        <!-- Centrar botones -->  
+                        <div class="text-center btn-custom ">  
+                            <button type="submit" class="btn btn-success btn-custom">Guardar</button>  
+                            <a href="{% url 'app_configuracion:institucion' %}" class="btn btn-secondary btn-custom">Regresar</a>  
+                        </div>  
+                    </form> 
+                </div> 
+            </div>  
+        </div>  
+    </div>    
+</div>  
 {% endblock %}
-
-

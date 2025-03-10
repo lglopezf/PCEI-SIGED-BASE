@@ -34,7 +34,7 @@ def grados_crear(request):
         return render(request, 'app_grados/grados_crear.html', datos)
 
 def grados_listar(request):
-    grados = Grado.objects.all()
+    grados = Grado.objects.all().order_by('nombre')
     datos = {'grado': grados, 'parametro': 3}
     return render(request, 'app_grados/grados_listar.html', datos)
 
